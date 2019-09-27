@@ -1,4 +1,4 @@
-package com.survey.app.fragments
+package com.sis.app.fragments
 
 
 import android.content.Intent
@@ -9,12 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
-import com.survey.app.R
-import com.survey.app.activities.DetailSurveyActivity
-import com.survey.app.adapters.QuestionListAdapter
-import com.survey.app.adapters.SurveyAdapter
-import com.survey.app.models.Survey
-import com.survey.app.models.SurveyDesc
+import com.sis.app.R
+import com.sis.app.activities.DetailSurveyActivity
+import com.sis.app.adapters.SurveyAdapter
+import com.sis.app.models.SurveyDesc
 import kotlinx.android.synthetic.main.fragment_survey_list.*
 
 class SurveyList : Fragment() {
@@ -27,7 +25,7 @@ class SurveyList : Fragment() {
         val view = inflater.inflate(R.layout.fragment_survey_list, container, false)
         viewAdapter = SurveyAdapter(list) {
             val intent = Intent(activity, DetailSurveyActivity::class.java)
-            intent.putExtra("model", 2)
+            intent.putExtra("model", it)
         }
 
 

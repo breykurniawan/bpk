@@ -1,4 +1,4 @@
-package com.survey.app.adapters
+package com.sis.app.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.RadioButton
-import com.survey.app.R
-import com.survey.app.models.CheckboxModel
+import com.sis.app.R
 
 class RadioButtonAdapter(val context: Context, val list: ArrayList<String>) : BaseAdapter() {
 

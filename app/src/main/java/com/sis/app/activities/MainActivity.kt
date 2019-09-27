@@ -1,13 +1,13 @@
-package com.survey.app.activities
+package com.sis.app.activities
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.survey.app.R
-import com.survey.app.fragments.Profile
-import com.survey.app.fragments.SurveyList
-import com.survey.app.fragments.SurveyResponse
+import com.sis.app.R
+import com.sis.app.fragments.Profile
+import com.sis.app.fragments.SurveyList
+import com.sis.app.fragments.SurveyResponse
 
 class MainActivity : AppCompatActivity() {
 

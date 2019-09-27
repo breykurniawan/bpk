@@ -1,4 +1,4 @@
-package com.survey.app.adapters
+package com.sis.app.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.survey.app.R
-import com.survey.app.models.CheckboxModel
-import com.survey.app.models.Question
-import com.survey.app.others.Utility
+import com.sis.app.R
+import com.sis.app.models.CheckboxModel
+import com.sis.app.models.Question
+import com.sis.app.others.Utility
 
 class QuestionListAdapter(val list: List<Question>) :
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {

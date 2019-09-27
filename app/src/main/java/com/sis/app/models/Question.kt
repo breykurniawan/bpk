@@ -1,4 +1,4 @@
-package com.survey.app.models
+package com.sis.app.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

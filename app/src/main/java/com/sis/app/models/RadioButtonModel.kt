@@ -1,4 +1,4 @@
-package com.survey.app.models
+package com.sis.app.models
 
 
 class RadioButtonModel(val title:String)

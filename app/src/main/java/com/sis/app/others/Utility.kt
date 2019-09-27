@@ -1,4 +1,4 @@
-package com.survey.app.others
+package com.sis.app.others
 
 import android.content.ContentResolver
 import android.graphics.Bitmap

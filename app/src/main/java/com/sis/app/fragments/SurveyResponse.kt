@@ -1,4 +1,4 @@
-package com.survey.app.fragments
+package com.sis.app.fragments
 
 
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.survey.app.R
+import com.sis.app.R
 
 class SurveyResponse : Fragment() {
 

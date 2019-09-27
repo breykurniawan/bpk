@@ -1,16 +1,13 @@
-package com.survey.app.adapters
+package com.sis.app.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.survey.app.R
-import com.survey.app.models.CheckboxModel
+import com.sis.app.R
+import com.sis.app.models.CheckboxModel
 
 class CheckBoxAdapter(val context: Context, val list: ArrayList<CheckboxModel>) : BaseAdapter() {
 

@@ -1,12 +1,12 @@
-package com.survey.app.adapters
+package com.sis.app.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.survey.app.R
-import com.survey.app.models.SurveyDesc
+import com.sis.app.R
+import com.sis.app.models.SurveyDesc
 
 class SurveyAdapter(val list: List<SurveyDesc>, val surveyClickListener: (SurveyDesc) -> Unit) :
     RecyclerView.Adapter<SurveyAdapter.ViewHolder>() {
