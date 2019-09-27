@@ -16,8 +16,8 @@ class DetailSurveyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_survey)
 
-        var data = intent.getParcelableExtra<SubSurvey>("model")
-        viewAdapter = QuestionListAdapter(data.question)
+        val data: SubSurvey? = intent.getParcelableExtra("model")
+        viewAdapter = QuestionListAdapter(data?.question)
 
         rv_list_question.apply {
             setHasFixedSize(true)

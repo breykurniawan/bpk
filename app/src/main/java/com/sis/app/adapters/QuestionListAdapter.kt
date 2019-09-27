@@ -12,7 +12,7 @@ import com.sis.app.models.CheckboxModel
 import com.sis.app.models.Question
 import com.sis.app.others.Utility
 
-class QuestionListAdapter(val list: List<Question>) :
+class QuestionListAdapter(val list: List<Question>?) :
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionListAdapter.ViewHolder {
@@ -47,7 +47,7 @@ class QuestionListAdapter(val list: List<Question>) :
             )
             Utility.QUESTION_TYPE_SCALE -> ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.question_radio,
+                    R.layout.question_scale_five,
                     parent,
                     false
                 ), viewType
@@ -67,7 +67,7 @@ class QuestionListAdapter(val list: List<Question>) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (list[position].question_type) {
+        return when (list?.get(position)?.question_type) {
             "text " -> Utility.QUESTION_TYPE_TEXT
             "textarea" -> Utility.QUESTION_TYPE_TEXTAREA
             "checkbox" -> Utility.QUESTION_TYPE_CHECKBOX
@@ -79,11 +79,11 @@ class QuestionListAdapter(val list: List<Question>) :
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return list?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: QuestionListAdapter.ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list?.get(position))
     }
 
     inner class ViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
@@ -99,21 +99,19 @@ class QuestionListAdapter(val list: List<Question>) :
                 */
                 Utility.QUESTION_TYPE_CHECKBOX -> option = itemView.findViewById(R.id.list_checkbox)
                 Utility.QUESTION_TYPE_RADIO -> option = itemView.findViewById(R.id.list_radio)
-                /*
                 Utility.QUESTION_TYPE_SCALE -> null
                 Utility.QUESTION_TYPE_SECTION -> null
-                */
             }
         }
 
-        fun bind(model: Question) {
-            title?.text = model.title
-            when (model.question_type) {
+        fun bind(model: Question?) {
+            title?.text = model?.title
+            when (model?.question_type) {
                 "text " -> null
                 "textarea" -> null
                 "checkbox" -> {
                     val newList: ArrayList<CheckboxModel> = arrayListOf()
-                    model.option_name.forEach {
+                    model.option_name?.forEach {
                         newList.add(CheckboxModel(it))
                     }
 //                    val modelList :List<CheckboxModel> = newList
@@ -123,7 +121,7 @@ class QuestionListAdapter(val list: List<Question>) :
                 }
                 "radio" -> {
                     val newList: ArrayList<String> = arrayListOf()
-                    model.option_name.forEach {
+                    model.option_name?.forEach {
                         newList.add(it)
                     }
                     option?.apply {
@@ -139,6 +137,9 @@ class QuestionListAdapter(val list: List<Question>) :
 //                        layoutManager = LinearLayoutManager(itemView.context)
 //                        adapter = CheckBoxAdapter(modelList)
 //                    }
+                }
+                "scale" -> {
+
                 }
                 else -> Log.e(QuestionListAdapter::class.java.simpleName, "No Question Type is Defined")
             }

@@ -19,7 +19,7 @@ class InputIdentityActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_identity)
-        var model: List<SubSurvey>? = intent.getParcelableArrayListExtra("model")
+        val model: List<SubSurvey>? = intent.getParcelableArrayListExtra("model")
 
         ArrayAdapter.createFromResource(
             this, R.array.pemangku_kepentingan, R.layout.support_simple_spinner_dropdown_item
@@ -34,14 +34,14 @@ class InputIdentityActivity : AppCompatActivity() {
             residence.adapter = it
         }
 
-        stakeholders.setOnItemClickListener { _, _, pos, _ ->
-            stakeholdersSelected = pos
-        }
-
-
-        residence.setOnItemClickListener{ _, _, pos, _ ->
-            residenceSelected = pos
-        }
+//        stakeholders.setOnItemClickListener { _, _, pos, _ ->
+//            stakeholdersSelected = pos
+//        }
+//
+//
+//        residence.setOnItemClickListener{ _, _, pos, _ ->
+//            residenceSelected = pos
+//        }
 
         next.setOnClickListener {
             val intent = Intent(this, SubSurveySection::class.java)
@@ -51,7 +51,7 @@ class InputIdentityActivity : AppCompatActivity() {
     }
 
     private fun invalidateInput(): Boolean {
-        var check = true
+        var check: Boolean
 
         check = if (TextUtils.isEmpty(name.text.toString())) {
             name.error = "Harus Diisi"

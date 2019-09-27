@@ -28,7 +28,7 @@ class SubSurveyAdapter(val list: List<SubSurvey>?, val subSurveyClickListener: (
         private var title: TextView = view.findViewById(R.id.title)
         private var subtitle: TextView = view.findViewById(R.id.description)
 
-        fun bind(model: SubSurvey?, subSurveyClickListener: (SubSurvey) -> Unit) {
+        fun bind(model: SubSurvey?, subSurveyClickListener: (SubSurvey?) -> Unit) {
             title.text = model?.title
             subtitle.text = model?.description
             view.setOnClickListener {

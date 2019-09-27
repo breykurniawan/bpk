@@ -14,7 +14,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            app:title="Identitas Responden"
+            app:titleTextColor="@color/white"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -25,7 +27,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            android:paddingBottom="56dp">
 
             <TextView
                 android:id="@+id/text_name"
@@ -43,9 +46,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ajsndjanskfj"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,8 +67,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,8 +115,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,8 +137,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/agency"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,5 +179,6 @@
         android:layout_gravity="bottom"
         android:layout_marginTop="16dp"
         android:background="@color/colorPrimary"
-        android:text="simpan" />
+        android:text="simpan"
+        android:textColor="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

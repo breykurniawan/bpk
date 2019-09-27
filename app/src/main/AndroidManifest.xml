@@ -15,7 +15,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/title_activity_home" />
-        <activity android:name=".activities.SplashScreen">
+        <activity android:name=".activities.SplashScreen"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

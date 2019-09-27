@@ -19,7 +19,7 @@ class CheckBoxAdapter(val context: Context, val list: ArrayList<CheckboxModel>) 
 
 
     override fun getView(pos: Int, convertView: View?, parent: ViewGroup?): View? {
-        var view: View? = null
+        var view: View?
         var holder = ViewHolder()
 
         if (convertView == null) {
@@ -38,7 +38,7 @@ class CheckBoxAdapter(val context: Context, val list: ArrayList<CheckboxModel>) 
         holder.checkBox?.tag = pos
 
         holder.checkBox?.setOnClickListener {
-            val tmpView = holder.checkBox?.getTag(1) as View
+//            val tmpView = holder.checkBox?.getTag(1) as View
 
             list[pos].checked != list[pos].checked
             notifyDataSetChanged()

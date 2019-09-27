@@ -18,7 +18,7 @@ class RadioButtonAdapter(val context: Context, val list: ArrayList<String>) : Ba
     }
 
     override fun getView(pos: Int, convertView: View?, parent: ViewGroup?): View? {
-        var view: View? = null
+        var view: View?
         var holder = ViewHolder()
 
         if (convertView == null) {
