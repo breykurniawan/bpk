@@ -7,12 +7,12 @@ import androidx.fragment.app.Fragment
 import com.sis.app.R
 import com.sis.app.fragments.Profile
 import com.sis.app.fragments.SurveyList
-import com.sis.app.fragments.SurveyResponse
+import com.sis.app.fragments.SurveyRespondent
 
 class MainActivity : AppCompatActivity() {
 
     private var surveyFragment: SurveyList? = null
-    private var surveyResponseFragment: SurveyResponse? = null
+    private var surveyRespondentFragment: SurveyRespondent? = null
     private var profileFragment: Profile? = null
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_survey -> {
                 surveyFragment?: SurveyList()
             }
-            R.id.nav_response-> {
-                surveyResponseFragment?: SurveyResponse()
+            R.id.nav_respondent-> {
+                surveyRespondentFragment?: SurveyRespondent()
             }
             R.id.nav_profile-> {
                 profileFragment?: Profile()

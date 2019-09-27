@@ -12,10 +12,13 @@ class Utility {
         val PICK_IMAGE: Int = 101
         val TAKE_PHOTOS: Int = 102
         val IMAGE_MIME_TYPES = arrayOf("image/jpeg", "image/png")
+
         val QUESTION_TYPE_TEXT: Int = 201
         val QUESTION_TYPE_TEXTAREA: Int = 202
         val QUESTION_TYPE_CHECKBOX: Int = 203
         val QUESTION_TYPE_RADIO: Int = 204
+        val QUESTION_TYPE_SCALE: Int = 205
+        val QUESTION_TYPE_SECTION: Int = 300
     }
 
     fun getImageFromUri(contentResolver: ContentResolver, uri: Uri?): Bitmap =

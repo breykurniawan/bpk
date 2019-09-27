@@ -3,22 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="16dp">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:layout_marginBottom="8dp"
         tools:text="Judul" />
 
-    <TextView
-        android:id="@+id/description"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:ellipsize="end"
-        android:textSize="18sp"
-        tools:text="Sub Judul" />
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+
+        android:layout_below="@id/title"/>
 
 </RelativeLayout>

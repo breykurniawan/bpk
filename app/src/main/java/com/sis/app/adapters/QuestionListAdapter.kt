@@ -45,6 +45,20 @@ class QuestionListAdapter(val list: List<Question>) :
                     false
                 ), viewType
             )
+            Utility.QUESTION_TYPE_SCALE -> ViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_radio,
+                    parent,
+                    false
+                ), viewType
+            )
+            Utility.QUESTION_TYPE_SECTION -> ViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_section,
+                    parent,
+                    false
+                ), viewType
+            )
             else -> ViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.question_empty, parent, false),
                 viewType
@@ -58,6 +72,8 @@ class QuestionListAdapter(val list: List<Question>) :
             "textarea" -> Utility.QUESTION_TYPE_TEXTAREA
             "checkbox" -> Utility.QUESTION_TYPE_CHECKBOX
             "radio" -> Utility.QUESTION_TYPE_RADIO
+            "scale" -> Utility.QUESTION_TYPE_SCALE
+            "section" -> Utility.QUESTION_TYPE_SECTION
             else -> 0
         }
     }
@@ -83,6 +99,10 @@ class QuestionListAdapter(val list: List<Question>) :
                 */
                 Utility.QUESTION_TYPE_CHECKBOX -> option = itemView.findViewById(R.id.list_checkbox)
                 Utility.QUESTION_TYPE_RADIO -> option = itemView.findViewById(R.id.list_radio)
+                /*
+                Utility.QUESTION_TYPE_SCALE -> null
+                Utility.QUESTION_TYPE_SECTION -> null
+                */
             }
         }
 

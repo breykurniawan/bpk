@@ -1,6 +1,8 @@
 package com.sis.app.models
 
-
+/**
+ * tidak dipakai
+ */
 class RadioButtonModel(val title:String)
 
 //import android.view.LayoutInflater
