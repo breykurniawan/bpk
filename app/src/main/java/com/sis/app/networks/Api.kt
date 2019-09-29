@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class Api {
 
     companion object {
-        private const val BASE_URL: String = "https://jejakhosting.com/api/"
+        private const val BASE_URL: String = "https://bpk.jejakhosting.com/api/"
     }
 
     private fun retrofit(): Retrofit {
