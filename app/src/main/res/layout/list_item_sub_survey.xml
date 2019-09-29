@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:layout_margin="4dp"
+    android:elevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="56dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textSize="14sp"
+            tools:text="Judullsdnfslksldnflsdknflskndflks\nbaru\nlagi\njfnskjdnf" />
+
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_check"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -18,15 +18,20 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val fragment: Fragment = when (item.itemId) {
             R.id.nav_survey -> {
-                surveyFragment?: SurveyList()
+                supportActionBar?.title = "Daftar Survey"
+                surveyFragment ?: SurveyList()
             }
-            R.id.nav_respondent-> {
-                surveyRespondentFragment?: SurveyRespondent()
+            R.id.nav_respondent -> {
+                supportActionBar?.title = "Daftar Responden"
+                surveyRespondentFragment ?: SurveyRespondent()
             }
-            R.id.nav_profile-> {
-                profileFragment?: Profile()
-            } else -> {
-                surveyFragment?: SurveyList()
+            R.id.nav_profile -> {
+                supportActionBar?.title = "Profil"
+                profileFragment ?: Profile()
+            }
+            else -> {
+                supportActionBar?.title = "Daftar Survey"
+                surveyFragment ?: SurveyList()
             }
         }
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
@@ -40,9 +45,5 @@ class MainActivity : AppCompatActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SurveyList()).commit()
-    }
-
-    fun setToolbarTitle(text: String) {
-
     }
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
 import com.sis.app.R
-import com.sis.app.models.CheckboxModel
+import com.sis.app.models.surveyQuestion.CheckboxModel
 
 class CheckBoxAdapter(val context: Context, val list: ArrayList<CheckboxModel>) : BaseAdapter() {
 

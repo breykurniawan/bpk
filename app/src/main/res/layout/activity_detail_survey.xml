@@ -14,13 +14,14 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize"
+            app:title="Kuisioner"
+            app:titleTextColor="@color/white"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <RelativeLayout
@@ -28,30 +29,71 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/title_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/black"
                 android:textSize="26sp"
                 tools:text="Judul" />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:textSize="20sp"
-                tools:text="Sub Judul" />
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/title_"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/colorPrimary" />
 
+            <!--<TextView-->
+                <!--android:id="@+id/title"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/separator"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:textSize="24sp"-->
+                <!--tools:text="Judul" />-->
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_question"
+                android:id="@+id/rv_list_bagian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/description">
+                android:layout_below="@id/separator"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
-        </RelativeLayout>
+            <Button
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rv_list_bagian"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:text="Selanjutnya" />
 
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/load_off"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_cloud_off"
+        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

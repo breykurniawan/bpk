@@ -1,21 +1,30 @@
 package com.sis.app.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sis.app.R
-import com.sis.app.models.CheckboxModel
-import com.sis.app.models.Question
+import com.sis.app.models.surveyData.Question
+import com.sis.app.models.surveyData.QuestionReference
+import com.sis.app.models.surveyQuestion.RadioScaleModel
 import com.sis.app.others.Utility
 
-class QuestionListAdapter(val list: List<Question>?) :
+class QuestionListAdapter(val list: List<QuestionReference>?) :
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>() {
 
+    companion object {
+        var scaleList: MutableList<RadioScaleModel> = mutableListOf()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionListAdapter.ViewHolder {
+//        return ViewHolder(
+//            LayoutInflater.from(parent.context).inflate(R.layout.question_scale_five, parent, false),
+//            viewType
+//        )
+
         return when (viewType) {
             Utility.QUESTION_TYPE_TEXT -> ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
@@ -64,10 +73,13 @@ class QuestionListAdapter(val list: List<Question>?) :
                 viewType
             )
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (list?.get(position)?.question_type) {
+//        return Utility.QUESTION_TYPE_SCALE
+
+        return when (list?.get(position)?.tipe) {
             "text " -> Utility.QUESTION_TYPE_TEXT
             "textarea" -> Utility.QUESTION_TYPE_TEXTAREA
             "checkbox" -> Utility.QUESTION_TYPE_CHECKBOX
@@ -76,36 +88,59 @@ class QuestionListAdapter(val list: List<Question>?) :
             "section" -> Utility.QUESTION_TYPE_SECTION
             else -> 0
         }
+
     }
 
     override fun getItemCount(): Int {
         return list?.size ?: 0
     }
 
+    public fun getAnswer(): MutableList<RadioScaleModel> = scaleList
+
     override fun onBindViewHolder(holder: QuestionListAdapter.ViewHolder, position: Int) {
         holder.bind(list?.get(position))
+        if (list != null) {
+            for (question in list) {
+                if (question.tipe.equals("scale")) {
+                    scaleList.add(RadioScaleModel(question.id_pertanyaan, -1, -1, -1))
+                }
+            }
+        }
     }
 
-    inner class ViewHolder(itemView: View, viewType: Int) : RecyclerView.ViewHolder(itemView) {
-        private var title: TextView? = null
-        private var option: ListView? = null
+    inner class ViewHolder(view: View, viewType: Int) : RecyclerView.ViewHolder(view) {
+        private var title: TextView? = view.findViewById(R.id.title)
+        private var scaleGroup: RadioGroup? = null
+//        private var option: ListView? = null
 
         init {
-            title = itemView.findViewById(R.id.title)
             when (viewType) {
                 /*
                 Utility.QUESTION_TYPE_TEXT -> null
                 Utility.QUESTION_TYPE_TEXTAREA -> null
+                Utility.QUESTION_TYPE_CHECKBOX -> option = view.findViewById(R.id.list_checkbox)
+                Utility.QUESTION_TYPE_RADIO -> option = view.findViewById(R.id.list_radio)
                 */
-                Utility.QUESTION_TYPE_CHECKBOX -> option = itemView.findViewById(R.id.list_checkbox)
-                Utility.QUESTION_TYPE_RADIO -> option = itemView.findViewById(R.id.list_radio)
-                Utility.QUESTION_TYPE_SCALE -> null
+                Utility.QUESTION_TYPE_SCALE -> scaleGroup = view.findViewById(R.id.scale_group)
                 Utility.QUESTION_TYPE_SECTION -> null
             }
+
+            scaleGroup?.setOnCheckedChangeListener({ _, id ->
+                var selectedScale = when (id) {
+                    R.id.scale_1 -> 1
+                    R.id.scale_2 -> 2
+                    R.id.scale_3 -> 3
+                    R.id.scale_4 -> 4
+                    R.id.scale_5 -> 5
+                    else -> -1
+                }
+                scaleList.get(adapterPosition).nilai = selectedScale
+            })
         }
 
-        fun bind(model: Question?) {
-            title?.text = model?.title
+        fun bind(model: QuestionReference?) {
+            title?.text = model?.judul
+            /*
             when (model?.question_type) {
                 "text " -> null
                 "textarea" -> null
@@ -116,7 +151,7 @@ class QuestionListAdapter(val list: List<Question>?) :
                     }
 //                    val modelList :List<CheckboxModel> = newList
                     option?.apply {
-                        adapter = CheckBoxAdapter(itemView.context, newList)
+                        adapter = CheckBoxAdapter(view.context, newList)
                     }
                 }
                 "radio" -> {
@@ -125,7 +160,7 @@ class QuestionListAdapter(val list: List<Question>?) :
                         newList.add(it)
                     }
                     option?.apply {
-                        adapter = RadioButtonAdapter(itemView.context, newList)
+                        adapter = RadioButtonAdapter(view.context, newList)
                     }
 //                    val newList: MutableList<CheckboxModel> = mutableListOf()
 //                    model.option_name.forEach {
@@ -134,7 +169,7 @@ class QuestionListAdapter(val list: List<Question>?) :
 //                    val modelList :List<CheckboxModel> = newList
 //                    option?.apply {
 //                        setHasFixedSize(true)
-//                        layoutManager = LinearLayoutManager(itemView.context)
+//                        layoutManager = LinearLayoutManager(view.context)
 //                        adapter = CheckBoxAdapter(modelList)
 //                    }
                 }
@@ -143,9 +178,7 @@ class QuestionListAdapter(val list: List<Question>?) :
                 }
                 else -> Log.e(QuestionListAdapter::class.java.simpleName, "No Question Type is Defined")
             }
-
+            */
         }
-
     }
-
 }

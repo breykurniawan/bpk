@@ -13,8 +13,9 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            app:title="Daftar Kuisioner"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="?attr/actionBarSize" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -49,11 +50,32 @@
                 android:id="@+id/rv_list_sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/description">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_below="@id/description"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/load_off"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_cloud_off"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/finish_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:text="selesai" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,10 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SurveyList">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_survey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
     </androidx.recyclerview.widget.RecyclerView>
 

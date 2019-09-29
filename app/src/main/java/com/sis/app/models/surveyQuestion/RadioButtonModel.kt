@@ -1,4 +1,4 @@
-package com.sis.app.models
+package com.sis.app.models.surveyQuestion
 
 /**
  * tidak dipakai

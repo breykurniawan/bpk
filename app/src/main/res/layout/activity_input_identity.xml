@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Identitas Responden"
-            app:titleTextColor="@color/white"/>
+            app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -142,10 +142,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/text_stakeholders"
+                android:id="@+id/text_stakeholders_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_agency"
+                android:layout_marginTop="16dp"
+                android:text="Tipe Pemangku Kepentingan" />
+
+            <Spinner
+                android:id="@+id/stakeholders_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_stakeholders_type" />
+
+            <TextView
+                android:id="@+id/text_stakeholders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stakeholders_type"
                 android:layout_marginTop="16dp"
                 android:text="Pemangku Kepentingan" />
 
@@ -181,4 +195,12 @@
         android:background="@color/colorPrimary"
         android:text="simpan"
         android:textColor="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
