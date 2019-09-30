@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sis.app.activities.InputIdentityActivity">
@@ -46,6 +47,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +69,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/address"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -114,6 +119,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -136,6 +143,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/agency"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

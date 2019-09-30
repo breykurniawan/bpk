@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.sis.app.R
 import com.sis.app.models.identity.RespondentData
 import com.sis.app.models.identity.DataResponse
@@ -15,6 +16,7 @@ import com.sis.app.models.identity.Stakeholder
 import com.sis.app.models.identity.StakeholderType
 import com.sis.app.networks.Api
 import kotlinx.android.synthetic.main.activity_input_identity.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,15 +41,24 @@ class InputIdentityActivity : AppCompatActivity() {
         dmsl.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         residence.adapter = dmsl
 
+        gender.setOnCheckedChangeListener { _, i ->
+            if (i == R.id.gender_man) {
+                genderSelected = 1
+                println("laki")
+            } else if (i == R.id.gender_woman) {
+                println("perempuan")
+                genderSelected = 2
+            }
+
+//            check = (i == R.id.gender_man) || (i == R.id.gender_woman)
+        }
+
         next.setOnClickListener {
-//            var id_responden: Int? = invalidateInputAndSend();
-//            if (id_responden != -1) {
-                val intent = Intent(this, DetailSurveyActivity::class.java)
-//            intent.putParcelableArrayListExtra("model", model as ArrayList<out Parcelable>)
-                intent.putExtra("id_kuisioner", id_kuisioner)
-                intent.putExtra("id_responden", 4)
-                startActivity(intent)
-//            }
+            invalidateInputAndSend(id_kuisioner);
+//            val intent = Intent(applicationContext, DetailSurveyActivity::class.java)
+//            intent.putExtra("id_kuisioner", id_kuisioner)
+//            intent.putExtra("id_responden", 24)
+//            startActivity(intent)
         }
     }
 
@@ -61,16 +72,14 @@ class InputIdentityActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<StakeholderType>>, response: Response<List<StakeholderType>>) {
                 listStakeholderType = response.body()
                 populateSpinner()
-
             }
 
         })
     }
 
-    private fun invalidateInputAndSend(): Int? {
+    var genderSelected: Int = -1
+    private fun invalidateInputAndSend(id_kuisioner: Int) {
         var check: Boolean = true
-        var genderSelected: Int = -1
-        var idResponden: Int? = -1
 
         check != TextUtils.isEmpty(name.text.toString())
         if (TextUtils.isEmpty(name.text.toString())) name.error = "Harus Diisi"
@@ -84,19 +93,13 @@ class InputIdentityActivity : AppCompatActivity() {
         check != TextUtils.isEmpty(agency.text.toString())
         if (TextUtils.isEmpty(agency.text.toString())) agency.error = "Harus Diisi"
 
-        gender.setOnCheckedChangeListener { _, i ->
-            genderSelected = if (i == R.id.gender_man) 1
-            else if (i == R.id.gender_woman) 2
-            else -1
-
-            check = (i == R.id.gender_man) || (i == R.id.gender_woman)
-        }
-
 //        check = stakeholdersSelected != -1 || stakeholdersSelected != 0
 
         println(check)
+        logging("jk $genderSelected")
         if (check) {
-            val data: RespondentData = RespondentData(
+            val rs = residenceSelected + 1
+            val call = Api().getInstance().sendDataRespondent(
                 name.text.toString(),
                 address.text.toString(),
                 genderSelected,
@@ -104,33 +107,31 @@ class InputIdentityActivity : AppCompatActivity() {
                 agency.text.toString(),
                 stakeholderTypeSelected!!,
                 stakeholdersSelected!!,
-                residenceSelected
-            )
-            println(data)
-            val call: Call<DataResponse> = Api().getInstance().sendDataRespondent(
-                name.text.toString(),
-                address.text.toString(),
-                genderSelected,
-                phone.text.toString(),
-                agency.text.toString(),
-                stakeholderTypeSelected!!,
-                stakeholdersSelected!!,
-                residenceSelected
+                rs
             )
             call.enqueue(object : Callback<DataResponse> {
                 override fun onFailure(call: Call<DataResponse>, t: Throwable) {
+                    Snackbar.make(parent_layout, "Gagal Mengirim", Snackbar.LENGTH_LONG).show()
                     logging("Cannot send data: ${t.message}")
                 }
 
                 override fun onResponse(call: Call<DataResponse>, response: Response<DataResponse>) {
-                    idResponden = response.body()?.id_responden
-                    println(" ${response.body()} dan $idResponden}")
+                    println("ID Responden ${response.body()?.id_responden}")
+                    if (response.isSuccessful) {
+                        val intent = Intent(applicationContext, DetailSurveyActivity::class.java)
+                        intent.putExtra("id_kuisioner", id_kuisioner)
+                        intent.putExtra("id_responden", response.body()?.id_responden)
+                        startActivity(intent)
+                    } else {
+                        Snackbar.make(parent_layout, "Gagal Menerima", Snackbar.LENGTH_LONG).show()
+                        logging("problem ${response.errorBody().toString()}")
+                        logging("problem ${response}")
+                        logging("IDresponden = ${response.body()?.id_responden}")
+                    }
                 }
 
             })
         }
-
-        return idResponden
     }
 
     private fun populateSpinner() {

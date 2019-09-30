@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class DataResponse(
-    @SerializedName("status") val status: String,
+    @SerializedName("status") val status: Boolean,
     @SerializedName("message") val message: String,
     @SerializedName("id_responden") val id_responden: Int
 ) : Parcelable

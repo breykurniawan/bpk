@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parent_layout"
     tools:context=".activities.DetailSurveyActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Kuisioner"
-            app:titleTextColor="@color/white"/>
+            app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -26,7 +27,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp">
 
             <TextView
                 android:id="@+id/title_"
@@ -50,15 +52,15 @@
                 android:background="@color/colorPrimary" />
 
             <!--<TextView-->
-                <!--android:id="@+id/title"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/separator"-->
-                <!--android:layout_marginLeft="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:textSize="24sp"-->
-                <!--tools:text="Judul" />-->
+            <!--android:id="@+id/title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/separator"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:textSize="24sp"-->
+            <!--tools:text="Judul" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_bagian"
@@ -69,16 +71,6 @@
                 android:layout_marginRight="8dp">
 
             </androidx.recyclerview.widget.RecyclerView>
-
-            <Button
-                android:id="@+id/next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rv_list_bagian"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimary"
-                android:text="Selanjutnya" />
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
@@ -95,5 +87,16 @@
         android:layout_height="92dp"
         android:layout_gravity="center"
         android:background="@drawable/ic_cloud_off"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:text="Selanjutnya"
+        android:textColor="@color/white"
         android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

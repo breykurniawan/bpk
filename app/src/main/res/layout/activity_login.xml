@@ -18,11 +18,11 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="128dp"
+                android:layout_width="256dp"
                 android:layout_height="128dp"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="36dp"
-                android:src="@drawable/dua" />
+                android:src="@drawable/logo_text" />
 
             <TextView
                 android:id="@+id/error_text"
@@ -52,6 +52,7 @@
                     android:inputType="text|textAutoComplete"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:text="surveyor"
                     android:textColor="@color/black"
                     android:textSize="14dp" />
 
@@ -77,6 +78,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:text="surveyor"
                     android:textSize="14dp" />
 
             </com.google.android.material.textfield.TextInputLayout>

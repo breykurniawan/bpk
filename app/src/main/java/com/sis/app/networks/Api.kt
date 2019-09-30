@@ -4,8 +4,12 @@ import com.sis.app.models.identity.RespondentData
 import com.sis.app.models.identity.DataResponse
 import com.sis.app.models.surveyData.Survey
 import com.sis.app.models.identity.StakeholderType
+import com.sis.app.models.surveyData.ListSurvey
 import com.sis.app.models.surveyData.SubSurvey
+import com.sis.app.models.surveyQuestion.Answer
+import com.sis.app.models.surveyQuestion.RadioScaleModel
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -16,7 +20,7 @@ import java.util.concurrent.TimeUnit
 class Api {
 
     companion object {
-        private const val BASE_URL: String = "https://bpk.jejakhosting.com/api/"
+        private const val BASE_URL: String = "http://bpk.jejakhosting.com/api/"
     }
 
     private fun retrofit(): Retrofit {
@@ -42,6 +46,9 @@ class Api {
         @GET("tipePemangkuKepentingan")
         fun getStakeholderType(): Call<List<StakeholderType>>
 
+        @GET("kuisioner")
+        fun getListKuisioner() : Call<List<ListSurvey>>
+
         /**
          * nama: String,
 
@@ -59,7 +66,9 @@ class Api {
             @Field("domisili") domisili: Int
         ): Call<DataResponse>
 
-//        @POST("/kuisioner/login")
-//        fun login(@Path("") )
+        @POST("jawaban/submit")
+        fun sendAnswer(
+            @Body jawaban: Answer
+        ) : Call<ResponseBody>
     }
 }

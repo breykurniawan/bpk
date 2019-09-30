@@ -9,5 +9,6 @@ data class QuestionReference(
     val id_pertanyaan: Int,
     val id_bagian: Int,
     val judul: String,
-    val tipe: String
+    val tipe: String,
+    var nilai:Int
 ) : Parcelable
