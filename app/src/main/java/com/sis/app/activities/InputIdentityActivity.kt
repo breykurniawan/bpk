@@ -26,6 +26,7 @@ class InputIdentityActivity : AppCompatActivity() {
     private var stakeholderTypeSelected: Int? = -1
     private var stakeholdersSelected: Int? = -1
     private var residenceSelected: Int = -1
+    var genderSelected: Int = -1
     private var listStakeholderType: List<StakeholderType>? = listOf()
     private var listStakeholder: List<Stakeholder>? = listOf()
 
@@ -37,8 +38,8 @@ class InputIdentityActivity : AppCompatActivity() {
         getSpinnerData()
 
         val dmsl =
-            ArrayAdapter.createFromResource(this, R.array.domisili, R.layout.support_simple_spinner_dropdown_item)
-        dmsl.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            ArrayAdapter.createFromResource(this, R.array.domisili, R.layout.spinner_item)
+        dmsl.setDropDownViewResource(R.layout.spinner_item)
         residence.adapter = dmsl
 
         gender.setOnCheckedChangeListener { _, i ->
@@ -66,18 +67,24 @@ class InputIdentityActivity : AppCompatActivity() {
         val call: Call<List<StakeholderType>> = Api().getInstance().getStakeholderType()
         call.enqueue(object : Callback<List<StakeholderType>> {
             override fun onFailure(call: Call<List<StakeholderType>>, t: Throwable) {
+                Snackbar.make(parent_layout, "Gagal Menerima Data", Snackbar.LENGTH_LONG).show()
+                next.isEnabled = false
                 logging("Cannot get Stakeholder Type: ${t.message}")
             }
 
             override fun onResponse(call: Call<List<StakeholderType>>, response: Response<List<StakeholderType>>) {
-                listStakeholderType = response.body()
-                populateSpinner()
+                if (response.isSuccessful) {
+                    listStakeholderType = response.body()
+                    populateSpinner()
+                } else {
+                    Snackbar.make(parent_layout, "Gagal Menerima Data\n${response.message()}", Snackbar.LENGTH_LONG).show()
+                    logging("Gagal Menerima Data\n${response.message()}")
+                }
             }
 
         })
     }
 
-    var genderSelected: Int = -1
     private fun invalidateInputAndSend(id_kuisioner: Int) {
         var check: Boolean = true
 
@@ -140,15 +147,15 @@ class InputIdentityActivity : AppCompatActivity() {
             lst.add(it.nama_tipe)
         }
 
-        ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, lst)
+        ArrayAdapter(applicationContext, R.layout.spinner_item, lst)
             .also {
-                it.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                it.setDropDownViewResource(R.layout.spinner_item)
                 stakeholders_type.adapter = it
             }
 
-        ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, listOf("..."))
+        ArrayAdapter(applicationContext, R.layout.spinner_item, listOf("..."))
             .also {
-                it.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                it.setDropDownViewResource(R.layout.spinner_item)
                 stakeholders.adapter = it
             }
 
@@ -178,9 +185,9 @@ class InputIdentityActivity : AppCompatActivity() {
                 listStakeholder?.forEach {
                     st.add(it.nama)
                 }
-                ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, st)
+                ArrayAdapter(applicationContext, R.layout.spinner_item, st)
                     .also {
-                        it.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                        it.setDropDownViewResource(R.layout.spinner_item)
                         stakeholders.adapter = it
                     }
 

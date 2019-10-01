@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -92,7 +93,7 @@ class DetailSurveyActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    val sn = Snackbar.make(parent_layout, "Gagal Mengirim Jawaban", Snackbar.LENGTH_LONG).show()
+                    val sn = Snackbar.make(parent_layout, "Sukses", Snackbar.LENGTH_LONG).show()
                     Handler().postDelayed({
                         finish()
                     }, 2000)
@@ -211,6 +212,22 @@ class DetailSurveyActivity : AppCompatActivity() {
             rv_list_bagian.visibility = View.VISIBLE
             progress.visibility = View.GONE
         }, 1000)
+    }
+
+    fun warnDialog() {
+        val dialog = AlertDialog.Builder(applicationContext)
+            .setMessage("Batal Mengisi Kuisioner?")
+            .setPositiveButton("Ya", { dialog, id ->
+                finish()
+            })
+            .setNegativeButton("Tidak", { dialog, id ->
+                dialog.dismiss()
+            })
+        dialog.show()
+    }
+
+    override fun onBackPressed() {
+        warnDialog()
     }
 
 }
