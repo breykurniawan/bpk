@@ -22,7 +22,7 @@
 // Modified version of: https://github.com/kcochibili/TinyDB--Android-Shared-Preferences-Turbo
 // Added getListMat and putListMat methods
 
-package com.lauszus.facerecognitionapp;
+package com.sis.app.others;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,11 +41,8 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
 
 
 public class TinyDB {
@@ -196,7 +193,7 @@ public class TinyDB {
     /**
      * Get int value from SharedPreferences at 'key'. If key not found, return 'defaultValue'
      * @param key SharedPreferences key
-     * @param defaultValue int value returned if key was not found
+     * @param key defaultValue int value returned if key was not found
      * @return int value at 'key' or 'defaultValue' if key not found
      */
     public int getInt(String key) {
@@ -232,7 +229,7 @@ public class TinyDB {
     /**
      * Get float value from SharedPreferences at 'key'. If key not found, return 'defaultValue'
      * @param key SharedPreferences key
-     * @param defaultValue float value returned if key was not found
+     * @param key defaultValue float value returned if key was not found
      * @return float value at 'key' or 'defaultValue' if key not found
      */
     public float getFloat(String key) {
@@ -293,7 +290,7 @@ public class TinyDB {
     /**
      * Get boolean value from SharedPreferences at 'key'. If key not found, return 'defaultValue'
      * @param key SharedPreferences key
-     * @param defaultValue boolean value returned if key was not found
+     * @param key defaultValue boolean value returned if key was not found
      * @return boolean value at 'key' or 'defaultValue' if key not found
      */
     public boolean getBoolean(String key) {
@@ -320,18 +317,7 @@ public class TinyDB {
         return newList;
     }
 
-    public ArrayList<Mat> getListMat(String key){
-        ArrayList<String> objStrings = getListString(key);
-        ArrayList<Mat> objects =  new ArrayList<Mat>();
 
-        for (String jObjString : objStrings) {
-            byte[] data = Base64.decode(jObjString, Base64.DEFAULT);
-            Mat mat = new Mat(data.length, 1, CvType.CV_8U);
-            mat.put(0, 0, data);
-            objects.add(mat);
-        }
-        return objects;
-    }
 
 //    public ArrayList<Object> getListObject(String key, Class<?> mClass){
 //    	Gson gson = new Gson();
@@ -473,19 +459,7 @@ public class TinyDB {
         putListString(key, newList);
     }
 
-    public void putListMat(String key, ArrayList<Mat> objArray){
-        checkForNullKey(key);
-        ArrayList<String> objStrings = new ArrayList<String>();
 
-        for (Mat mat : objArray) {
-            int size = (int) (mat.total() * mat.channels());
-            byte[] data = new byte[size];
-            mat.get(0, 0, data);
-            String dataString = new String(Base64.encode(data, Base64.DEFAULT));
-            objStrings.add(dataString);
-        }
-        putListString(key, objStrings);
-    }
 
     /**
      * Put ObJect any type into SharedPrefrences with 'key' and save
@@ -583,7 +557,7 @@ public class TinyDB {
     }
     /**
      * null keys would corrupt the shared pref file and make them unreadable this is a preventive measure
-     * @param the pref key
+     * @param key the pref key
      */
     public void checkForNullKey(String key){
         if (key == null){
@@ -592,7 +566,7 @@ public class TinyDB {
     }
     /**
      * null keys would corrupt the shared pref file and make them unreadable this is a preventive measure
-     * @param the pref key
+     * @param value the pref key
      */
     public void checkForNullValue(String value){
         if (value == null){

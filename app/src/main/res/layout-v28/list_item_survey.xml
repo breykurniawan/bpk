@@ -8,25 +8,23 @@
     android:paddingRight="16dp">
 
     <TextView
-        android:firstBaselineToTopHeight="28dp"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:layout_marginTop="8dp"
+        android:firstBaselineToTopHeight="28dp"
         android:maxLines="1"
         android:textColor="#de000000"
         android:textSize="16sp"
         tools:text="Judul\nbaru\nlagi" />
 
-<!--        android:firstBaselineToTopHeight="20dp"-->
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="4dp"
         android:ellipsize="end"
+        android:firstBaselineToTopHeight="20dp"
         android:maxLines="1"
         android:textColor="#9000"
         android:textSize="14sp"
@@ -36,5 +34,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/grey" />
+        android:background="#4000" />
 </RelativeLayout>

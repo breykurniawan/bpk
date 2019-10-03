@@ -1,24 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ptr"
     tools:context=".fragments.SurveyRespondent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/bg"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/ic_assignment_turned_in"
-        android:backgroundTint="@color/colorPrimary"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/bg"
-        android:text="Daftar Responden"
-        android:textSize="24sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/bg"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_assignment_empty"
+            android:backgroundTint="@color/colorPrimary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/text_respondent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bg"
+            android:layout_centerHorizontal="true"
+            android:text="Daftar Responden Kosong"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progress"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorPrimary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_survey_respondent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

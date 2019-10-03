@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sis.app">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -10,21 +13,43 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activities.InputIdentityActivity"
-            android:noHistory="true"/>
-        <activity android:name=".activities.SubSurveySection" />
-        <activity android:name=".activities.DetailSurveyActivity" />
-        <activity android:name=".activities.LoginActivity"
-            android:noHistory="true"/>
+        android:theme="@style/AppTheme"
+        android:resizeableActivity="false">
+        <activity
+            android:name=".activities.InputIdentityActivity"
+            android:noHistory="true"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.SubSurveySection"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.DetailSurveyActivity"
+            android:parentActivityName=".activities.InputIdentityActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.InputIdentityActivity" />
+        </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/title_activity_home" />
-        <activity android:name=".activities.SplashScreen"
-            android:noHistory="true">
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SplashScreen"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

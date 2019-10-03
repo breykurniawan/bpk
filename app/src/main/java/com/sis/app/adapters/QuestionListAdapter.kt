@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import com.sis.app.R
-import com.sis.app.models.surveyData.Question
 import com.sis.app.models.surveyData.QuestionReference
-import com.sis.app.models.surveyQuestion.RadioScaleAnswer
-import com.sis.app.models.surveyQuestion.RadioScaleModel
 import com.sis.app.others.Utility
 
 class QuestionListAdapter(val list: List<QuestionReference>?) :
@@ -20,7 +18,10 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
 //    var scaleList: MutableList<RadioScaleAnswer> = mutableListOf()
 //    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionListAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): QuestionListAdapter.ViewHolder {
 //        return ViewHolder(
 //            LayoutInflater.from(parent.context).inflate(R.layout.question_scale_five, parent, false),
 //            viewType
@@ -34,22 +35,40 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
 
         return when (viewType) {
             Utility.QUESTION_TYPE_TEXT -> ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.question_text, parent, false), viewType
+                LayoutInflater.from(parent.context).inflate(R.layout.question_text, parent, false),
+                viewType
             )
             Utility.QUESTION_TYPE_TEXTAREA -> ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.question_textarea, parent, false), viewType
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_textarea,
+                    parent,
+                    false
+                ), viewType
             )
             Utility.QUESTION_TYPE_CHECKBOX -> ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.question_checkbox, parent, false), viewType
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_checkbox,
+                    parent,
+                    false
+                ), viewType
             )
             Utility.QUESTION_TYPE_RADIO -> ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.question_radio, parent, false), viewType
+                LayoutInflater.from(parent.context).inflate(R.layout.question_radio, parent, false),
+                viewType
             )
             Utility.QUESTION_TYPE_SCALE -> ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.question_scale_five, parent, false), viewType
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_scale_five,
+                    parent,
+                    false
+                ), viewType
             )
             Utility.QUESTION_TYPE_SECTION -> ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.question_section, parent, false), viewType
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_section,
+                    parent,
+                    false
+                ), viewType
             )
             else -> ViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.question_empty, parent, false),
@@ -63,12 +82,12 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
 //        return Utility.QUESTION_TYPE_SCALE
 
         return when (list?.get(position)?.tipe) {
-            "text " -> Utility.QUESTION_TYPE_TEXT
-            "textarea" -> Utility.QUESTION_TYPE_TEXTAREA
-            "checkbox" -> Utility.QUESTION_TYPE_CHECKBOX
-            "radio" -> Utility.QUESTION_TYPE_RADIO
-            "scale" -> Utility.QUESTION_TYPE_SCALE
-            "section" -> Utility.QUESTION_TYPE_SECTION
+            Utility.QUESTION_TEXT -> Utility.QUESTION_TYPE_TEXT
+            Utility.QUESTION_TEXTAREA -> Utility.QUESTION_TYPE_TEXTAREA
+            Utility.QUESTION_CHECKBOX -> Utility.QUESTION_TYPE_CHECKBOX
+            Utility.QUESTION_RADIO -> Utility.QUESTION_TYPE_RADIO
+            Utility.QUESTION_SCALE -> Utility.QUESTION_TYPE_SCALE
+            Utility.QUESTION_SECTION -> Utility.QUESTION_TYPE_SECTION
             else -> 0
         }
 
@@ -87,9 +106,9 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
 
     inner class ViewHolder(view: View, viewType: Int) : RecyclerView.ViewHolder(view) {
         private var title: TextView? = view.findViewById(R.id.title)
+        private var textAreaAnswer: TextInputEditText? = view.findViewById(R.id.answer_text)
         private var scaleGroup: RadioGroup? = null
         var selectedScale = 0
-//        private var option: ListView? = null
 
         init {
             when (viewType) {

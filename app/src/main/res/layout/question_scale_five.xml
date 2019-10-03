@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:textSize="16sp"
+        android:textColor="#000"
         tools:text="Judul" />
 
     <RadioGroup
@@ -25,7 +26,7 @@
             android:id="@+id/scale_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text="0"
             android:layout_weight="1"
             android:textSize="20sp" />
 
@@ -34,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="2"
+            android:text="1"
             android:textSize="20sp" />
 
         <RadioButton
@@ -42,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="3"
+            android:text="2"
             android:textSize="20sp" />
 
         <RadioButton
@@ -50,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="4"
+            android:text="3"
             android:textSize="20sp" />
 
         <RadioButton
@@ -58,7 +59,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="5"
+            android:text="4"
             android:textSize="20sp" />
     </RadioGroup>
 </RelativeLayout>

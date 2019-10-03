@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SplashScreen"
-    android:background="@drawable/gradient_splash">
+    tools:context=".activities.SplashScreen">
 
     <ImageView
         android:layout_width="144dp"
         android:layout_height="144dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/logo_splash"/>
+        android:src="@drawable/logo_splash" />
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="96dp"
+        android:visibility="gone" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="96dp"
+        app:SpinKit_Color="@color/colorPrimary" />
 
 </RelativeLayout>

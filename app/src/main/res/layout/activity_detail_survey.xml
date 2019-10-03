@@ -2,15 +2,16 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parent_layout"
     tools:context=".activities.DetailSurveyActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,8 +22,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <RelativeLayout
@@ -38,7 +41,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:textColor="@color/black"
-                android:textSize="26sp"
+                android:textSize="20sp"
                 tools:text="Judul" />
 
             <View
@@ -47,7 +50,7 @@
                 android:layout_height="2dp"
                 android:layout_below="@id/title_"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/colorPrimary" />
 
@@ -76,10 +79,19 @@
     </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progress_circular"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorPrimary" />
 
     <ImageView
         android:id="@+id/load_off"
@@ -98,5 +110,12 @@
         android:background="@color/colorPrimary"
         android:text="Selanjutnya"
         android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_transparent"
         android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

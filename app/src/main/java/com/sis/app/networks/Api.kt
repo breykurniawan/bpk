@@ -1,13 +1,13 @@
 package com.sis.app.networks
 
-import com.sis.app.models.identity.RespondentData
+import com.sis.app.models.UserResponse
 import com.sis.app.models.identity.DataResponse
+import com.sis.app.models.identity.Residence
 import com.sis.app.models.surveyData.Survey
 import com.sis.app.models.identity.StakeholderType
 import com.sis.app.models.surveyData.ListSurvey
-import com.sis.app.models.surveyData.SubSurvey
+import com.sis.app.models.surveyData.RespondentSurveyData
 import com.sis.app.models.surveyQuestion.Answer
-import com.sis.app.models.surveyQuestion.RadioScaleModel
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,8 +25,9 @@ class Api {
 
     private fun retrofit(): Retrofit {
         var interceptor = HttpLoggingInterceptor()
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS).build()
+        val client =
+            OkHttpClient.Builder().addInterceptor(interceptor).readTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS).build()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -41,18 +42,20 @@ class Api {
     //TODO lengkapi alamat-alamat endpoint
     interface ApiInterface {
         @GET("kuisioner/{id_kuisioner}")
-        fun getQuestioner(@Path("id_kuisioner") id_kuisioner: Int): Call<Survey>
+        fun getQuestionnaire(@Path("id_kuisioner") id_kuisioner: Int): Call<Survey>
 
         @GET("tipePemangkuKepentingan")
         fun getStakeholderType(): Call<List<StakeholderType>>
 
         @GET("kuisioner")
-        fun getListKuisioner() : Call<List<ListSurvey>>
+        fun getListKuisioner(): Call<List<ListSurvey>>
 
-        /**
-         * nama: String,
+        @GET("respondenBySurveyor/{id_surveyor}")
+        fun getListRespondent(@Path("id_surveyor") id_surveyor: Int): Call<List<RespondentSurveyData>>
 
-         */
+        @GET("domisili")
+        fun getResidence(): Call<List<Residence>>
+
         @FormUrlEncoded
         @POST("responden/submit")
         fun sendDataRespondent(
@@ -63,12 +66,17 @@ class Api {
             @Field("nama_instansi") nama_instansi: String,
             @Field("tipe_stakeholder") tipe_stakeholder: Int,
             @Field("nama_stakeholder") nama_stakeholder: Int,
-            @Field("domisili") domisili: Int
+            @Field("domisili") domisili: Int,
+            @Field("usia") usia: Int
         ): Call<DataResponse>
 
         @POST("jawaban/submit")
         fun sendAnswer(
             @Body jawaban: Answer
-        ) : Call<ResponseBody>
+        ): Call<ResponseBody>
+
+        @FormUrlEncoded
+        @POST("login")
+        fun loginWithUsernamePassword(@Field("email") email: String, @Field("password") password: String): Call<UserResponse>
     }
 }

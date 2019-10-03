@@ -7,18 +7,23 @@
     android:layout_height="match_parent"
     tools:context="com.sis.app.activities.InputIdentityActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <Button
+        android:id="@+id/next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_agency"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:text="simpan"
+        android:textColor="@color/white" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Identitas Responden"
-            app:titleTextColor="@color/white" />
-    </com.google.android.material.appbar.AppBarLayout>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -28,60 +33,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             android:paddingBottom="56dp">
-
-            <TextView
-                android:id="@+id/text_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/text_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_name"
-                android:text="Alamat" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_address"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_address">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/text_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_address"
-                android:text="Jenis Kelamin" />
 
             <RadioGroup
                 android:id="@+id/gender"
@@ -103,66 +56,39 @@
 
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/text_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/gender"
-                android:text="Nomor Telepon" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_phone"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_phone">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <TextView
-                android:id="@+id/text_agency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_phone"
-                android:text="Instansi" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_agency"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_agency">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/agency"
-                    android:inputType="text|textCapWords"
-                    android:maxLines="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/text_stakeholders_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_agency"
-                android:layout_marginTop="16dp"
-                android:text="Tipe Pemangku Kepentingan" />
-
             <Spinner
                 android:id="@+id/stakeholders_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_stakeholders_type" />
+
+            <Spinner
+                android:id="@+id/stakeholders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_stakeholders" />
+
+            <Spinner
+                android:id="@+id/residence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_residence" />
+
+            <TextView
+                android:id="@+id/text_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_address"
+                android:layout_marginTop="16dp"
+                android:text="Jenis Kelamin" />
+
+            <TextView
+                android:id="@+id/text_stakeholders_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_phone"
+                android:layout_marginTop="16dp"
+                android:text="Tipe Pemangku Kepentingan" />
 
             <TextView
                 android:id="@+id/text_stakeholders"
@@ -172,44 +98,105 @@
                 android:layout_marginTop="16dp"
                 android:text="Pemangku Kepentingan" />
 
-            <Spinner
-                android:id="@+id/stakeholders"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_stakeholders" />
-
             <TextView
                 android:id="@+id/text_residence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/stakeholders"
+                android:layout_below="@id/layout_agency"
                 android:layout_marginTop="16dp"
                 android:text="Domisili Responden" />
 
-            <Spinner
-                android:id="@+id/residence"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_residence" />
+                android:hint="Nama">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_address"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_name"
+                android:layout_marginTop="16dp"
+                android:hint="Alamat">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_phone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gender"
+                android:layout_marginTop="16dp"
+                android:hint="Nomor Telepon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_agency"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stakeholders"
+                android:layout_marginTop="16dp"
+                android:hint="Instansi">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/agency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/next"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_agency"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
-        android:text="simpan"
-        android:textColor="@color/white" />
+        app:liftOnScroll="true">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Identitas Responden"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_transparent"
+        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

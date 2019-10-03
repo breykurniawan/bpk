@@ -1,11 +1,14 @@
 package com.sis.app.adapters
-
+/*
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.sis.app.R
 import com.sis.app.models.surveyQuestion.CheckboxModel
 
@@ -62,39 +65,41 @@ class CheckBoxAdapter(val context: Context, val list: ArrayList<CheckboxModel>) 
         var checkBox: CheckBox? = null
     }
 }
+*/
+/*
+class CheckBoxAdapter(val list: List<CheckboxModel>) : RecyclerView.Adapter<CheckBoxAdapter.ViewHolder>() {
 
-//class CheckBoxAdapter(val list: List<CheckboxModel>) : RecyclerView.Adapter<CheckBoxAdapter.ViewHolder>() {
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):CheckBoxAdapter.ViewHolder {
-//        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.abc_list_menu_item_checkbox, parent, true))
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return list.size
-//    }
-//
-//    override fun onBindViewHolder(holder: CheckBoxAdapter.ViewHolder, position: Int) {
-//        holder.bind(list[position], position)
-//    }
-//
-//    class ViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
-//        var radioButton: CheckBox? = null
-//
-//        init {
-//            radioButton = view.findViewById(R.id.checkbox)
-//        }
-//
-//        fun bind(model : CheckboxModel, position: Int) {
-//            radioButton?.setText(model.title)
-//            radioButton?.isChecked = model.checked
-//            radioButton?.tag = position
-//            radioButton?.setOnClickListener{
-//                model.checked = !model.checked
-//                Toast.makeText(view.context, "checkbox $position diklik", Toast.LENGTH_LONG).show()
-//                Log.d(CheckBoxAdapter::class.java.simpleName, "checkbox $position diklik")
-//
-//            }
-//        }
-//    }
-//
-//}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):CheckBoxAdapter.ViewHolder {
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.abc_list_menu_item_checkbox, parent, true))
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+
+    override fun onBindViewHolder(holder: CheckBoxAdapter.ViewHolder, position: Int) {
+        holder.bind(list[position], position)
+    }
+
+    class ViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
+        var radioButton: CheckBox? = null
+
+        init {
+            radioButton = view.findViewById(R.id.checkbox)
+        }
+
+        fun bind(model : CheckboxModel, position: Int) {
+            radioButton?.setText(model.title)
+            radioButton?.isChecked = model.checked
+            radioButton?.tag = position
+            radioButton?.setOnClickListener{
+                model.checked = !model.checked
+                Toast.makeText(view.context, "checkbox $position diklik", Toast.LENGTH_LONG).show()
+                Log.d(CheckBoxAdapter::class.java.simpleName, "checkbox $position diklik")
+
+            }
+        }
+    }
+
+}
+*/

@@ -13,5 +13,14 @@ data class RespondentData(
     @SerializedName("nama_instansi") val nama_instansi: String,
     @SerializedName("tipe_stakeholder") val tipe_stakeholder: Int?,
     @SerializedName("nama_stakeholder") val nama_stakeholder: Int?,
-    @SerializedName("domisili") val domisili: Int
+    @SerializedName("domisili") val domisili: Int?,
+    @SerializedName("usia") val usia: Int
+) : Parcelable
+
+
+@Parcelize
+data class DataResponse(
+    @SerializedName("status") val status: Boolean,
+    @SerializedName("message") val message: String,
+    @SerializedName("id_responden") val id_responden: Int
 ) : Parcelable

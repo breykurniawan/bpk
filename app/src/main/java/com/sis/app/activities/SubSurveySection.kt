@@ -15,18 +15,23 @@ import kotlinx.android.synthetic.main.activity_sub_survey_section.*
 import retrofit2.Call
 import retrofit2.Response
 
+/**
+ * Tidak Digunakan
+ * Tampilan ini digunakan saat setelah mengisi data responden
+ * dan sebelum memasuki tampilan kuisioner
+ */
 class SubSurveySection : AppCompatActivity() {
 
 //    private lateinit var viewAdapter: SubSurveyAdapter
-    private var id_kuisioner: Int = -1
-    private var id_responden: Int = -1
+//    private var id_kuisioner: Int = -1
+//    private var id_responden: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub_survey_section)
-        id_kuisioner = intent.getIntExtra("id_kuisioner", -1)
-        id_responden = intent.getIntExtra("id_responden", -1)
-        getKuisioner(id_kuisioner)
+//        id_kuisioner = intent.getIntExtra("id_kuisioner", -1)
+//        id_responden = intent.getIntExtra("id_responden", -1)
+//        getKuisioner(id_kuisioner)
 
 //        var list: List<SubSurvey>? = intent.getParcelableArrayListExtra("model")
 
@@ -38,7 +43,7 @@ class SubSurveySection : AppCompatActivity() {
 //            return
 //        }
 //
-//        val call: Call<Survey> = Api().getInstance().getQuestioner(id_kuisioner)
+//        val call: Call<Survey> = Api().getInstance().getQuestionnaire(id_kuisioner)
 //        call.enqueue(object : retrofit2.Callback<Survey> {
 //            override fun onFailure(call: Call<Survey>, t: Throwable) {
 //                Handler().postDelayed({

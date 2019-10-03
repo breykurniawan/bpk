@@ -10,3 +10,10 @@ data class Stakeholder(
     @SerializedName("tipe") val tipe: Int,
     @SerializedName("nama") val nama: String
 ) : Parcelable
+
+@Parcelize
+data class StakeholderType(
+    @SerializedName("id") val id: Int,
+    @SerializedName("nama_tipe") val nama_tipe: String,
+    @SerializedName("pemangku_kepentingan") val pemangku_kepentingan: List<Stakeholder>?
+) : Parcelable

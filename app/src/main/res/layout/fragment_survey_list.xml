@@ -1,22 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ptr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SurveyList">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_centerInParent="true"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_survey"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
-</RelativeLayout>
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/progress"
+            style="@style/SpinKitView.DoubleBounce"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/colorPrimary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list_survey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/bg"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_assignment_empty"
+            android:backgroundTint="@color/colorPrimary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/text_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bg"
+            android:layout_centerHorizontal="true"
+            android:text="Daftar Survey Kosong"
+            android:textSize="24sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
