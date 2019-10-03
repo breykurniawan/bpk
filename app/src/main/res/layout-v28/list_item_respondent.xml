@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="72dp"
+        android:ellipsize="end"
+        android:firstBaselineToTopHeight="28dp"
+        android:maxLines="1"
+        android:textColor="#de000000"
+        android:textSize="16sp"
+        tools:text="Nama" />
+
+    <TextView
+        android:id="@+id/date_created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/name"
+        android:layout_alignParentRight="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#9000"
+        android:textSize="12sp"
+        tools:text="Tanggal" />
+
+    <TextView
+        android:id="@+id/stakeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:ellipsize="end"
+        android:firstBaselineToTopHeight="20dp"
+        android:maxLines="1"
+        android:textColor="#9000"
+        android:textSize="14sp"
+        tools:text="pemangku kepentingan" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey" />
+
+</RelativeLayout>
+
