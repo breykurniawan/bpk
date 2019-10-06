@@ -20,6 +20,7 @@ import com.github.ybq.android.spinkit.SpinKitView
 import com.google.gson.Gson
 
 import com.sis.app.R
+import com.sis.app.activities.GuideActivity
 import com.sis.app.activities.InputIdentityActivity
 import com.sis.app.adapters.SurveyAdapter
 import com.sis.app.models.surveyData.Data
@@ -51,7 +52,6 @@ class SurveyList : Fragment() {
         ptr = view.findViewById(R.id.ptr)
         bg = view.findViewById(R.id.bg)
         text_bg = view.findViewById(R.id.text_bg)
-
 
         ptr.setOnRefreshListener {
             rv.visibility = View.GONE
@@ -86,9 +86,10 @@ class SurveyList : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     listSurvey = response.body()
-                    viewAdapter = SurveyAdapter(listSurvey) { d ->
+                    viewAdapter = SurveyAdapter(listSurvey) { d, tipe ->
                         val intent = Intent(activity, InputIdentityActivity::class.java)
                         intent.putExtra("id_kuisioner", d)
+                        intent.putExtra("id_tipe_pemangku", tipe)
                         startActivity(intent)
                     }
                     rv.apply {

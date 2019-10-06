@@ -17,5 +17,6 @@ data class ListSurvey(
     @SerializedName("deskripsi") val deskripsi: String,
     @SerializedName("tipe_responden") val tipe_responden: Int,
     @SerializedName("created_at") val created_at: String,
-    @SerializedName("updated_at") val updated_at: String
+    @SerializedName("updated_at") val updated_at: String,
+    @SerializedName("nama_tipe") val nama_tipe: String
 ) : Parcelable

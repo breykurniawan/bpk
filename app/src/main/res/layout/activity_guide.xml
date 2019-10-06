@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activities.GuideActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:title="Petunjuk Pengisian Kuisioner"
+            app:titleTextColor="@color/black" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ss"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:text="4 = SS"
+                android:layout_below="@id/four"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/s"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/three"
+                android:text="3 = S"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/ts"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/two"
+                android:text="2 = TS"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/sts"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/one"
+                android:text="1=STS"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tr"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:text="0 = TR"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/ssn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ss"
+                android:text="= "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/sn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/one"
+                android:layout_toRightOf="@id/s"
+                android:text="= "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tsn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/two"
+                android:layout_toRightOf="@id/ts"
+                android:text="= "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/stsn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/three"
+                android:layout_toRightOf="@id/sts"
+                android:text="= "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/trn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/four"
+                android:layout_toRightOf="@id/tr"
+                android:text="= "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/four"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/ssn"
+                android:text="Sangat Setuju, bila Bapak/Ibu menyetujui sepenuhnya pernyataan dalam kuesioner."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/four"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/three"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/sn"
+
+                android:text="Setuju, bila Bapak/Ibu menyetujui sebagian besar pernyataan dalam kuesioner."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/two"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/tsn"
+                android:text="Tidak Setuju, bila Bapak/Ibu tidak menyetujui pernyataan dalam kuesioner."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/one"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/stsn"
+                android:text="Sangat Tidak Setuju, bila Bapak/Ibu tidak menyetujui sepenuhnya pernyataan dalam kuesioner."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/trn"
+                android:text="Tidak Relevan, bila Bapak/Ibu tidak pernah berinteraksi/mengalami/mendapat layanan seperti tercantum pada pernyataan dalam kuesioner."
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress"
+        style="@style/SpinKitView.FoldingCube"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="128dp"
+        app:SpinKit_Color="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:text="Selanjutnya"
+        android:textColor="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

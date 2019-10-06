@@ -1,5 +1,17 @@
 package com.sis.app.networks
 
+import android.app.Activity
+import android.app.ProgressDialog
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.google.gson.annotations.SerializedName
+import com.sis.app.R
 import com.sis.app.models.UserResponse
 import com.sis.app.models.identity.DataResponse
 import com.sis.app.models.identity.Residence
@@ -8,19 +20,19 @@ import com.sis.app.models.identity.StakeholderType
 import com.sis.app.models.surveyData.ListSurvey
 import com.sis.app.models.surveyData.RespondentSurveyData
 import com.sis.app.models.surveyQuestion.Answer
-import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class Api {
 
     companion object {
-        private const val BASE_URL: String = "http://bpk.jejakhosting.com/api/"
+        private const val BASE_URL: String = "https://bpk.wdu-survey.com/api/"
     }
 
     private fun retrofit(): Retrofit {
@@ -67,7 +79,8 @@ class Api {
             @Field("tipe_stakeholder") tipe_stakeholder: Int,
             @Field("nama_stakeholder") nama_stakeholder: Int,
             @Field("domisili") domisili: Int,
-            @Field("usia") usia: Int
+            @Field("usia") usia: String,
+            @Field("pendidikan") pendidikan: String
         ): Call<DataResponse>
 
         @POST("jawaban/submit")
@@ -78,5 +91,13 @@ class Api {
         @FormUrlEncoded
         @POST("login")
         fun loginWithUsernamePassword(@Field("email") email: String, @Field("password") password: String): Call<UserResponse>
+
+        @Multipart
+        @POST("jawabanImage/submit")
+        fun sendImageRespondent(
+            @Part foto: MultipartBody.Part,
+            @PartMap data :Map<String, Int>
+        ): Call<ResponseBody>
     }
 }
+

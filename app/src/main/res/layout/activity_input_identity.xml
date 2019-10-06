@@ -19,7 +19,7 @@
         android:textColor="@color/white" />
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progress_circular"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center"
@@ -28,6 +28,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <RelativeLayout
@@ -60,7 +61,9 @@
                 android:id="@+id/stakeholders_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_stakeholders_type" />
+                android:layout_below="@id/text_stakeholders_type"
+                android:clickable="false"
+                android:longClickable="false" />
 
             <Spinner
                 android:id="@+id/stakeholders"
@@ -73,6 +76,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_residence" />
+
+            <Spinner
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_age" />
+
+            <Spinner
+                android:id="@+id/education"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_education" />
 
             <TextView
                 android:id="@+id/text_gender"
@@ -105,6 +120,22 @@
                 android:layout_below="@id/layout_agency"
                 android:layout_marginTop="16dp"
                 android:text="Domisili Responden" />
+
+            <TextView
+                android:id="@+id/text_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stakeholders"
+                android:layout_marginTop="16dp"
+                android:text="Usia Responden" />
+
+            <TextView
+                android:id="@+id/text_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/age"
+                android:layout_marginTop="16dp"
+                android:text="Pendidikan Terakhir Responden" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_name"
@@ -163,7 +194,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/stakeholders"
+                android:layout_below="@id/education"
                 android:layout_marginTop="16dp"
                 android:hint="Instansi">
 
@@ -192,11 +223,40 @@
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:padding="8dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <TextView
+            android:id="@+id/n0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="56dp"
+            android:text="Pastikan Responden ini pernah membaca LHP BPK"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey_transparent"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="72dp"
+        android:visibility="gone"
+        app:SpinKit_Color="@color/colorPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

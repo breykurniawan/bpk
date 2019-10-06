@@ -6,11 +6,21 @@
     android:layout_margin="16dp">
 
     <TextView
+        android:id="@+id/number"
+        android:layout_width="16dp"
+        tools:text="1."
+        android:textColor="#de000000"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@id/number"
+        android:textSize="16sp"
+        android:textColor="#000"
         tools:text="Judul" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,7 +30,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/answer_text"
+            android:id="@+id/answer_text_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences|text"

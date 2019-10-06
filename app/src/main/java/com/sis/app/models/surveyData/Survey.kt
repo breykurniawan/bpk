@@ -38,5 +38,6 @@ data class Subs(
 data class Question(
     @SerializedName("id_pertanyaan") val id_pertanyaan: Int,
     @SerializedName("id_bagian") val id_bagian: Int,
+    @SerializedName("tipe") val tipe: String,
     @SerializedName("pertanyaan") val pertanyaan: String
 ) : Parcelable

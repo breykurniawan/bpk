@@ -3,6 +3,7 @@ package com.sis.app.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.text.TextUtils
@@ -29,8 +30,11 @@ class InputIdentityActivity : AppCompatActivity() {
     private var stakeholderTypeSelected: Int? = -1
     private var stakeholdersSelected: Int? = -1
     private var residenceSelected: Int? = -1
-    private var age: Int = -1
+    private var ageSelected: String = ""
+    private var educationSelected: String = ""
     private var genderSelected: Int = -1
+
+    private var tipeStakeholder = -1
 
     private var listStakeholderType: List<StakeholderType>? = listOf()
     private var listStakeholder: List<Stakeholder>? = listOf()
@@ -44,6 +48,9 @@ class InputIdentityActivity : AppCompatActivity() {
 
 //        val model: List<SubSurvey>? = intent.getParcelableArrayListExtra("model")
         val id_kuisioner: Int = intent.getIntExtra("id_kuisioner", -1)
+        tipeStakeholder = intent.getIntExtra("id_tipe_pemangku", -1)
+
+        stakeholders_type.isEnabled = false
         getSpinnerData()
 
         gender.setOnCheckedChangeListener { _, i ->
@@ -137,46 +144,54 @@ class InputIdentityActivity : AppCompatActivity() {
     private fun invalidateInputAndSend(id_kuisioner: Int) {
         var check: Boolean = true
 
-        check != TextUtils.isEmpty(name.text.toString())
+        check = true != TextUtils.isEmpty(name.text.toString())
         if (TextUtils.isEmpty(name.text.toString())) name.error = "Harus Diisi"
 
-        check != TextUtils.isEmpty(address.text.toString())
+        check = true != TextUtils.isEmpty(address.text.toString())
         if (TextUtils.isEmpty(address.text.toString())) address.error = "Harus Diisi"
 
-        check != TextUtils.isEmpty(phone.text.toString())
+        check = true != TextUtils.isEmpty(phone.text.toString())
         if (TextUtils.isEmpty(phone.text.toString())) phone.error = "Harus Diisi"
+        if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT")) {
 
-        if (stakeholders_type.selectedItem.toString().equals("masyarakat")) {
-            check != (!(agency.text.toString().toInt() in 1..150))
-            if (!(agency.text.toString().toInt() in 1..150)) {
-                agency.error = "Usia diluar batas"
-            }
         } else {
-            check != TextUtils.isEmpty(agency.text.toString())
+            check = true != TextUtils.isEmpty(agency.text.toString())
             if (TextUtils.isEmpty(agency.text.toString())) agency.error = "Harus Diisi"
         }
-
-        logging("jk $genderSelected")
         if (check) {
             var data: RespondentData?
-            if (stakeholders_type.selectedItem.toString().equals("masyarakat")) {
+            if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT")) {
                 data = RespondentData(
-                    name.text.toString(), address.text.toString(), genderSelected,
-                    phone.text.toString(), "",
-                    stakeholderTypeSelected!!, stakeholdersSelected!!, residenceSelected, age
+                    name.text.toString(),
+                    address.text.toString(),
+                    genderSelected,
+                    phone.text.toString(),
+                    "kosong",
+                    stakeholderTypeSelected!!,
+                    stakeholdersSelected!!,
+                    residenceSelected,
+                    ageSelected,
+                    educationSelected
                 )
             } else {
                 data = RespondentData(
                     name.text.toString(), address.text.toString(), genderSelected,
                     phone.text.toString(), agency.text.toString(),
-                    stakeholderTypeSelected!!, stakeholdersSelected!!, residenceSelected, 0
+                    stakeholderTypeSelected!!, stakeholdersSelected!!, residenceSelected, "kosong", "kosong"
                 )
             }
-
-            val intent = Intent(applicationContext, DetailSurveyActivity::class.java)
+            println("data responden = $data")
+            val intent = Intent(this@InputIdentityActivity, GuideActivity::class.java)
             intent.putExtra("id_kuisioner", id_kuisioner)
             intent.putExtra("respondenData", data)
-            startActivity(intent)
+            if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT", true)) {
+                intent.putExtra(("masyarakat"), true)
+            }
+            overlay.visibility = View.VISIBLE
+            progress.visibility = View.VISIBLE
+            Handler().postDelayed({
+                startActivity(intent)
+            }, 2000)
         }
     }
 
@@ -218,7 +233,20 @@ class InputIdentityActivity : AppCompatActivity() {
             stakeholders.adapter = it
         }
 
+        ArrayAdapter.createFromResource(applicationContext, R.array.usia, R.layout.spinner_item)
+            .also {
+                it.setDropDownViewResource(R.layout.spinner_item)
+                age.adapter = it
+            }
 
+        ArrayAdapter.createFromResource(
+            applicationContext,
+            R.array.pendidikan,
+            R.layout.spinner_item
+        ).also {
+            it.setDropDownViewResource(R.layout.spinner_item)
+            education.adapter = it
+        }
 
         stakeholders_type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -228,13 +256,15 @@ class InputIdentityActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
 //                val watcher = NumberWatcher()
                 if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT")) {
-                    text_stakeholders.text = "Pendidikan"
-                    layout_agency.hint = "Usia"
-                    agency.inputType =
-                        InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
-//                    if (agency.getTag(-12) == null) {
-//                        agency.addTextChangedListener(watcher)
-//                    }
+                    text_age.visibility = View.VISIBLE
+                    text_education.visibility = View.VISIBLE
+                    age.visibility = View.VISIBLE
+                    education.visibility = View.VISIBLE
+                    agency.visibility = View.GONE
+//                    text_stakeholders.text = "Pendidikan"
+//                    layout_agency.hint = "Usia"
+//                    agency.inputType =
+//                        InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
 
                     stakeholderTypeSelected = listStakeholderType?.get(pos)?.id
                     listStakeholderType?.get(pos)?.id
@@ -248,10 +278,14 @@ class InputIdentityActivity : AppCompatActivity() {
                         stakeholders.adapter = it
                     }
                 } else {
-                    text_stakeholders.text = "Pemangku Kepentingan"
-                    layout_agency.hint = "Instansi"
-                    agency.inputType =
-                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+                    text_age.visibility = View.GONE
+                    text_education.visibility = View.GONE
+                    age.visibility = View.GONE
+                    education.visibility = View.GONE
+                    agency.visibility = View.VISIBLE
+//                    text_stakeholders.text = "Pemangku Kepentingan"
+//                    layout_agency.hint = "Instansi"
+//                    agency.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL or InputType.TYPE_TEXT_FLAG_CAP_WORDS
 //                    agency.removeTextChangedListener(watcher)
                     stakeholderTypeSelected = listStakeholderType?.get(pos)?.id
                     listStakeholderType?.get(pos)?.id
@@ -269,6 +303,12 @@ class InputIdentityActivity : AppCompatActivity() {
 
         }
 
+        listStakeholderType?.forEachIndexed { index, stakeholderType ->
+            if (stakeholderType.id == tipeStakeholder) {
+                stakeholders_type.setSelection(index)
+            }
+        }
+
         stakeholders.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -279,26 +319,29 @@ class InputIdentityActivity : AppCompatActivity() {
             }
 
         }
+
+        age.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                ageSelected = age.selectedItem.toString()
+            }
+
+        }
+
+        education.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                educationSelected = education.selectedItem.toString()
+            }
+
+        }
     }
 
     private fun logging(msg: String) = Log.w(InputIdentityActivity::class.java.simpleName, msg)
-
-    inner class NumberWatcher : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun onTextChanged(s: CharSequence?, before: Int, after: Int, count: Int) {
-            if (s != null) {
-                if (s.toString().toInt() in 1..150) {
-                    agency.setText("150", TextView.BufferType.EDITABLE)
-                }
-            }
-        }
-
-    }
 }

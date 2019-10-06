@@ -77,31 +77,34 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                if (response.body() != null) {
-                    println("masuk sini aja")
-                    if (response.isSuccessful) {
-                        val db = TinyDB(applicationContext)
-                        db.putInt("idSurveyor", response.body()?.user?.id ?: -1)
-                        db.putString("namaSurveyor", response.body()?.user?.name)
-                        db.putString("emailSurveyor", response.body()?.user?.email)
-                        db.putBoolean("isLoggedIn", true)
-
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        if (response.body()?.user != null && response.body()?.user?.role == 4) {
+                            val db = TinyDB(applicationContext)
+                            db.putInt("idSurveyor", response.body()?.user?.id ?: -1)
+                            db.putString("namaSurveyor", response.body()?.user?.name)
+                            db.putString("emailSurveyor", response.body()?.user?.email)
+                            db.putBoolean("isLoggedIn", true)
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                        } else {
+                            error_text.text = "Email atau Kata Sandi salah"
+                            error_text.visibility = View.VISIBLE
+                            enabled(true)
+                        }
                     } else {
-                        Snackbar.make(parent_layout, "Gagal Login", Snackbar.LENGTH_LONG).show()
-                        Log.w(
-                            LoginActivity::class.java.simpleName,
-                            "Gagal Login= ${response.message()}"
-                        )
+                        error_text.text = "Email atau Kata Sandi salah"
+                        error_text.visibility = View.VISIBLE
                         enabled(true)
                     }
                 } else {
-                    println("masuk sini dong")
-                    error_text.text = "Email atau Kata Sandi salah"
-                    
-                    error_text.visibility = View.VISIBLE
+                    Snackbar.make(parent_layout, "Gagal Login", Snackbar.LENGTH_LONG).show()
+                    Log.w(
+                        LoginActivity::class.java.simpleName,
+                        "Gagal Login= ${response.message()}"
+                    )
                     enabled(true)
                 }
+
             }
 
         })
@@ -135,12 +138,5 @@ class LoginActivity : AppCompatActivity() {
             currentFocus?.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
-    }
-
-    private fun checkNetwork(): Boolean {
-        val cm: ConnectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnected
     }
 }

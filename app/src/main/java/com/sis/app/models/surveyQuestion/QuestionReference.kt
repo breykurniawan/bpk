@@ -1,4 +1,4 @@
-package com.sis.app.models.surveyData
+package com.sis.app.models.surveyQuestion
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -10,6 +10,6 @@ data class QuestionReference(
     val id_bagian: Int,
     val judul: String,
     val tipe: String,
-    var nilai: Int? = 0,
-    var nilai_teks: String? = ""
+    var nilai: String?,
+    val nomor: String
 ) : Parcelable

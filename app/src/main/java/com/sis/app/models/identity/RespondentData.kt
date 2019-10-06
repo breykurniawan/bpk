@@ -14,7 +14,8 @@ data class RespondentData(
     @SerializedName("tipe_stakeholder") val tipe_stakeholder: Int?,
     @SerializedName("nama_stakeholder") val nama_stakeholder: Int?,
     @SerializedName("domisili") val domisili: Int?,
-    @SerializedName("usia") val usia: Int
+    @SerializedName("usia") val usia: String,
+    @SerializedName("pendidikan") val pendidikan: String
 ) : Parcelable
 
 

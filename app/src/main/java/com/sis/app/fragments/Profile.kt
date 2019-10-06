@@ -41,6 +41,9 @@ class Profile : Fragment() {
         email = view.findViewById(R.id.user_profile_email)
         logout = view.findViewById(R.id.logout)
 
+        name.text = TinyDB(activity?.applicationContext).getString("namaSurveyor")
+        email.text = TinyDB(activity?.applicationContext).getString("emailSurveyor")
+
         headerImage.setImageBitmap(
             BitmapFactory.decodeResource(resources, R.drawable.img_1)
         )

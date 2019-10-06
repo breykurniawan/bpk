@@ -13,6 +13,8 @@ class Utility {
     companion object {
         const val PICK_IMAGE: Int = 101
         const val TAKE_PHOTOS: Int = 102
+        const val WRITE_EXTERNAL = 201
+        const val ACCESS_CAMERA = 202
         val IMAGE_MIME_TYPES = arrayOf("image/jpeg", "image/png")
 
         const val QUESTION_TYPE_TEXT: Int = 201
@@ -20,6 +22,7 @@ class Utility {
         const val QUESTION_TYPE_CHECKBOX: Int = 203
         const val QUESTION_TYPE_RADIO: Int = 204
         const val QUESTION_TYPE_SCALE: Int = 205
+        const val QUESTION_TYPE_INSERT_PHOTOS: Int = 206
         const val QUESTION_TYPE_SECTION: Int = 300
 
         const val QUESTION_TEXT: String = "text"
@@ -27,7 +30,13 @@ class Utility {
         const val QUESTION_CHECKBOX: String = "checkbox"
         const val QUESTION_RADIO: String = "radio"
         const val QUESTION_SCALE: String = "scale"
+        const val QUESTION_INSERT_PHOTOS: String = "photo"
         const val QUESTION_SECTION: String = "section"
+
+        const val WIDE_POTRAIT: Int = 401
+        const val WIDE_LANDSCAPE: Int = 402
+        const val STANDARD_POTRAIT: Int = 403
+        const val STANDARD_LANDSCAPE: Int = 404
     }
 
     fun getImageFromUri(contentResolver: ContentResolver, uri: Uri?): Bitmap =
@@ -41,10 +50,10 @@ class Utility {
         var inSampleSize = 1
 
         if (height > reqHeight || width > reqWidth) {
-            val halfHeight: Int = height / 2
-            val halfWidth: Int = width / 2
+            val halfHeight: Int = height / 2 //960
+            val halfWidth: Int = width / 2 //720
 
-            while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+            while (height / inSampleSize >= reqHeight && width / inSampleSize >= reqWidth) {
                 inSampleSize *= 2
             }
         }
@@ -69,5 +78,16 @@ class Utility {
         inSampleSize = calculateInSampleSize(this, reqWidth, reqHeight)
         inJustDecodeBounds = false
         BitmapFactory.decodeResource(resource, resId, this)
+    }
+
+    fun checkRatio(width: Float, height: Float): String {
+        val r: Float = width / height
+        return if (r > 0) {
+            if (r > 1.6) "1920 1080"
+            else "1920 1440"
+        } else {
+            if (r > 0.7) "1080 1920"
+            else "1440 1920"
+        }
     }
 }

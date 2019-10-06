@@ -45,7 +45,6 @@
     </string-array>
 
     <string-array name="pemangku_kepentingan">
-        <item>Pilih...</item>
         <item>Kementrian</item>
         <item>Lembaga/Badan Negara</item>
         <item>Pemerintah Provinsi</item>
@@ -55,6 +54,21 @@
         <item>BUMN</item>
         <item>BUMD</item>
     </string-array>
+
+    <string-array name="usia">
+        <item>20 – 30 Tahun</item>
+        <item>31 – 40 Tahun</item>
+        <item>41 – 50 Tahun</item>
+        <item>Diatas 50 Tahun</item>
+    </string-array>
+
+    <string-array name="pendidikan">
+        <item>SLTA</item>
+        <item>Diploma</item>
+        <item>Sarjana (S1)</item>
+        <item>Pasca Sarjana (S1 / S3)</item>
+    </string-array>
+
     <string name="title_activity_login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

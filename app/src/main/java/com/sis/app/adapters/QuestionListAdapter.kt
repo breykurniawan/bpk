@@ -1,14 +1,17 @@
 package com.sis.app.adapters
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.sis.app.R
-import com.sis.app.models.surveyData.QuestionReference
+import com.sis.app.models.surveyQuestion.QuestionReference
 import com.sis.app.others.Utility
 
 class QuestionListAdapter(val list: List<QuestionReference>?) :
@@ -63,6 +66,14 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
                     false
                 ), viewType
             )
+            Utility.QUESTION_TYPE_INSERT_PHOTOS -> ViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.question_take_photos,
+                    parent,
+                    false
+                ),
+                viewType
+            )
             Utility.QUESTION_TYPE_SECTION -> ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.question_section,
@@ -87,6 +98,7 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
             Utility.QUESTION_CHECKBOX -> Utility.QUESTION_TYPE_CHECKBOX
             Utility.QUESTION_RADIO -> Utility.QUESTION_TYPE_RADIO
             Utility.QUESTION_SCALE -> Utility.QUESTION_TYPE_SCALE
+            Utility.QUESTION_INSERT_PHOTOS -> Utility.QUESTION_TYPE_INSERT_PHOTOS
             Utility.QUESTION_SECTION -> Utility.QUESTION_TYPE_SECTION
             else -> 0
         }
@@ -106,38 +118,63 @@ class QuestionListAdapter(val list: List<QuestionReference>?) :
 
     inner class ViewHolder(view: View, viewType: Int) : RecyclerView.ViewHolder(view) {
         private var title: TextView? = view.findViewById(R.id.title)
-        private var textAreaAnswer: TextInputEditText? = view.findViewById(R.id.answer_text)
+        private var textAreaAnswer: TextInputEditText? = view.findViewById(R.id.answer_text_area)
+        private var number: TextView = view.findViewById(R.id.number)
         private var scaleGroup: RadioGroup? = null
         var selectedScale = 0
 
         init {
             when (viewType) {
+                Utility.QUESTION_TYPE_TEXTAREA -> {
+                    textAreaAnswer?.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(
+                            p0: CharSequence?,
+                            p1: Int,
+                            p2: Int,
+                            p3: Int
+                        ) {
+
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            list!!.get(adapterPosition).nilai = p0.toString()
+                        }
+
+                        override fun afterTextChanged(p0: Editable?) {
+
+                        }
+
+                    })
+                }
+                Utility.QUESTION_TYPE_SCALE -> {
+                    scaleGroup = view.findViewById(R.id.scale_group)
+                    scaleGroup?.setOnCheckedChangeListener({ _, id ->
+                        when (id) {
+                            R.id.scale_1 -> selectedScale = 0
+                            R.id.scale_2 -> selectedScale = 1
+                            R.id.scale_3 -> selectedScale = 2
+                            R.id.scale_4 -> selectedScale = 3
+                            R.id.scale_5 -> selectedScale = 4
+                            else -> -1
+                        }
+                        list!!.get(adapterPosition).nilai = "$selectedScale"
+                    })
+                }
+                Utility.QUESTION_TYPE_INSERT_PHOTOS -> {
+
+                }
                 /*
                 Utility.QUESTION_TYPE_TEXT -> null
-                Utility.QUESTION_TYPE_TEXTAREA -> null
                 Utility.QUESTION_TYPE_CHECKBOX -> option = view.findViewById(R.id.list_checkbox)
                 Utility.QUESTION_TYPE_RADIO -> option = view.findViewById(R.id.list_radio)
                 */
-                Utility.QUESTION_TYPE_SCALE -> scaleGroup = view.findViewById(R.id.scale_group)
                 Utility.QUESTION_TYPE_SECTION -> null
             }
-
-            scaleGroup?.setOnCheckedChangeListener({ _, id ->
-                when (id) {
-                    R.id.scale_1 -> selectedScale = 1
-                    R.id.scale_2 -> selectedScale = 2
-                    R.id.scale_3 -> selectedScale = 3
-                    R.id.scale_4 -> selectedScale = 4
-                    R.id.scale_5 -> selectedScale = 5
-                    else -> -1
-                }
-                list!!.get(adapterPosition).nilai = selectedScale
-//                scaleList.get(adapterPosition).nilai = selectedScale
-            })
         }
 
         fun bind(model: QuestionReference?) {
             title?.text = model?.judul
+            number.text = model?.nomor
 
             /*
             when (model?.question_type) {

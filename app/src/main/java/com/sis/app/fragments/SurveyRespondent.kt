@@ -76,6 +76,7 @@ class SurveyRespondent : Fragment() {
                 Toast.makeText(activity?.applicationContext, "Gagal Menerima Data", Toast.LENGTH_LONG).show()
                 bg.visibility = View.VISIBLE
                 text_respondent.visibility = View.VISIBLE
+                progress.visibility = View.GONE
                 Log.e(SurveyList::class.java.simpleName, "Cannot Load Data: ${t.message}")
             }
 
@@ -96,6 +97,7 @@ class SurveyRespondent : Fragment() {
                         text_respondent.visibility = View.GONE
                         rv.visibility = View.VISIBLE
                     } else {
+                        progress.visibility = View.GONE
                         bg.visibility = View.VISIBLE
                         text_respondent.visibility = View.VISIBLE
                     }
@@ -103,6 +105,7 @@ class SurveyRespondent : Fragment() {
                     Toast.makeText(activity?.applicationContext, "Gagal Menerima Data", Toast.LENGTH_LONG).show()
                     bg.visibility = View.VISIBLE
                     text_respondent.visibility = View.VISIBLE
+                    progress.visibility = View.GONE
                     Log.e(
                         SurveyList::class.java.simpleName,
                         "Cannot Load Data: ${response.message()}"
