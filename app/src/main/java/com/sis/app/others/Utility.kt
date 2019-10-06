@@ -11,11 +11,10 @@ import com.bumptech.glide.load.engine.Resource
 class Utility {
 
     companion object {
+        val IMAGE_MIME_TYPES = arrayOf("image/jpeg", "image/png")
+
         const val PICK_IMAGE: Int = 101
         const val TAKE_PHOTOS: Int = 102
-        const val WRITE_EXTERNAL = 201
-        const val ACCESS_CAMERA = 202
-        val IMAGE_MIME_TYPES = arrayOf("image/jpeg", "image/png")
 
         const val QUESTION_TYPE_TEXT: Int = 201
         const val QUESTION_TYPE_TEXTAREA: Int = 202
@@ -37,6 +36,10 @@ class Utility {
         const val WIDE_LANDSCAPE: Int = 402
         const val STANDARD_POTRAIT: Int = 403
         const val STANDARD_LANDSCAPE: Int = 404
+
+        const val WRITE_EXTERNAL = 501
+        const val ACCESS_CAMERA = 502
+        const val REQUEST_PERMISSION = 500
     }
 
     fun getImageFromUri(contentResolver: ContentResolver, uri: Uri?): Bitmap =

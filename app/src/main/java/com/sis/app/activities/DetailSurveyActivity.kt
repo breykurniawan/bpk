@@ -1,7 +1,6 @@
 package com.sis.app.activities
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -36,7 +35,6 @@ import com.sis.app.networks.Api
 import com.sis.app.others.TinyDB
 import com.sis.app.others.Utility
 import kotlinx.android.synthetic.main.activity_detail_survey.*
-import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -63,8 +61,10 @@ class DetailSurveyActivity : AppCompatActivity() {
     private var id_responden: Int = -1
     private var id_user: Int = -1
     private var idPertanyaanGambar = -1
-    private var storage: Int = 0
-    private var camera: Int = 0
+    val appPermission = arrayOf(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA
+    )
     //    private var id_kuisioner: Int = -1
 
     private var currentPhotoPath = ""
@@ -82,11 +82,6 @@ class DetailSurveyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_survey)
         setSupportActionBar(toolbar)
-        storage = ContextCompat.checkSelfPermission(
-            applicationContext,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        camera = ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
 
         data = intent.getParcelableExtra("respondenData")
         id_user = TinyDB(applicationContext).getInt("idSurveyor")
@@ -100,19 +95,8 @@ class DetailSurveyActivity : AppCompatActivity() {
             else nextPart()
         }
         take_photo.setOnClickListener {
-            checkPermission()
-            if (storage == PackageManager.PERMISSION_GRANTED && camera == PackageManager.PERMISSION_GRANTED) {
+            if (checkPermission()) {
                 takePicture()
-//                dispatchTakePictureIntent()
-
-            }
-        }
-    }
-
-    private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                startActivityForResult(takePictureIntent, Utility.TAKE_PHOTOS)
             }
         }
     }
@@ -130,6 +114,7 @@ class DetailSurveyActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         try {
             val ph: Bitmap = BitmapFactory.decodeFile(currentPhotoPath)
             val res = Utility().checkRatio(ph.width.toFloat(), ph.height.toFloat()).split(" ")
@@ -158,6 +143,41 @@ class DetailSurveyActivity : AppCompatActivity() {
         } catch (ex: IOException) {
             logging("gagal menyimpan foto ${ex.message}")
             showSnack("Gagal Menyimpan Foto")
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        var deniedCount = 0
+        if (requestCode == Utility.REQUEST_PERMISSION) {
+            val permissionResult: MutableMap<String, Int> = mutableMapOf()
+
+            grantResults.forEachIndexed { index, i ->
+                if (i == PackageManager.PERMISSION_DENIED) {
+                    permissionResult[permissions[index]] = grantResults[index]
+                    deniedCount++
+                    logging("Izin ${permissions[index]} ditolak")
+                    showSnack("Izin Ditolak")
+                }
+            }
+
+            if (deniedCount == 0) {
+                takePicture()
+            } else {
+
+                for (entry in permissionResult) {
+                    val permName = entry.key
+                    val permResult = entry.value
+//                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, permName)) {
+//
+//                    }
+                }
+            }
         }
     }
 
@@ -480,14 +500,18 @@ class DetailSurveyActivity : AppCompatActivity() {
     private fun warnDialog() {
         val dialog: AlertDialog.Builder? = AlertDialog.Builder(this@DetailSurveyActivity)
         dialog?.setMessage("Batal Mengisi Kuisioner?")
-            ?.setPositiveButton("Ya", { dialog, id ->
+            ?.setPositiveButton("Ya") { _, _ ->
                 finish()
-            })
-            ?.setNegativeButton("Tidak", { dialog, id ->
-                dialog.dismiss()
-            })
+            }
+            ?.setNegativeButton("Tidak") { dial, _ ->
+                dial.dismiss()
+            }
         dialog?.create()?.show()
     }
+
+//    private fun showDialog(title: String, desc: String, posText: String, negText: String, ) {
+//
+//    }
 
     private fun logging(msg: String) = Log.w(InputIdentityActivity::class.java.simpleName, msg)
 
@@ -545,22 +569,27 @@ class DetailSurveyActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPermission() {
+    private fun checkPermission(): Boolean {
+        var requestPermission = mutableListOf<String>()
+        for (perm in appPermission) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    perm
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermission.add(perm)
+            }
+        }
 
-        if (storage != PackageManager.PERMISSION_GRANTED
-        ) ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            Utility.WRITE_EXTERNAL
-        )
-        if (camera != PackageManager.PERMISSION_GRANTED
-        ) ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.CAMERA),
-            Utility.ACCESS_CAMERA
-        )
-        if (storage == PackageManager.PERMISSION_DENIED) showSnack("Akses storage ditolak")
-        if (camera == PackageManager.PERMISSION_DENIED) showSnack("akses kamera ditolak")
+        if (!requestPermission.isEmpty()) {
+            ActivityCompat.requestPermissions(
+                this,
+                requestPermission as Array<out String>,
+                Utility.REQUEST_PERMISSION
+            )
+            return false
+        }
+        return true
     }
 
     private fun showSnack(msg: String) =

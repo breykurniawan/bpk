@@ -255,12 +255,13 @@ class InputIdentityActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
 //                val watcher = NumberWatcher()
-                if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT")) {
+                if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT", true)) {
                     text_age.visibility = View.VISIBLE
                     text_education.visibility = View.VISIBLE
                     age.visibility = View.VISIBLE
                     education.visibility = View.VISIBLE
                     agency.visibility = View.GONE
+                    text_stakeholders.text = "Jenis Responden"
 //                    text_stakeholders.text = "Pendidikan"
 //                    layout_agency.hint = "Usia"
 //                    agency.inputType =
