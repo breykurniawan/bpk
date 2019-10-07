@@ -23,9 +23,6 @@ class GuideActivity : AppCompatActivity() {
             val intent: Intent = Intent(this@GuideActivity, DetailSurveyActivity::class.java)
             intent.putExtra("id_kuisioner", idKuisioner)
             intent.putExtra("respondenData", data)
-            if (masyarakat) {
-                intent.putExtra(("masyarakat"), true)
-            }
             startActivity(intent)
         }
     }

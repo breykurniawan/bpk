@@ -223,11 +223,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_notice"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:padding="8dp"
         android:background="@color/white"
         android:elevation="4dp"
+        android:padding="8dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <TextView
@@ -235,8 +236,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="56dp"
-            android:text="Pastikan Responden ini pernah membaca LHP BPK"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="Pastikan telah berkoordinasi dan bekerjasama dengan BPK" />
 
     </RelativeLayout>
 

@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.view.marginTop
 import com.google.android.material.snackbar.Snackbar
 import com.sis.app.R
 import com.sis.app.models.identity.Residence
@@ -64,8 +65,18 @@ class InputIdentityActivity : AppCompatActivity() {
         next.setOnClickListener {
             invalidateInputAndSend(id_kuisioner);
         }
-    }
 
+        when (tipeStakeholder) {
+            1 -> n0.text = getString(R.string.notice_auditee)
+            2 -> {
+                n0.text = ""
+            }
+            5 -> n0.text = getString(R.string.notice_masyarakat)
+            3 -> n0.text = getString(R.string.notice_legislatif)
+            4 -> n0.text = getString(R.string.notice_mitra_kerjasama)
+        }
+
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("name", name.text.toString())
@@ -184,9 +195,6 @@ class InputIdentityActivity : AppCompatActivity() {
             val intent = Intent(this@InputIdentityActivity, GuideActivity::class.java)
             intent.putExtra("id_kuisioner", id_kuisioner)
             intent.putExtra("respondenData", data)
-            if (stakeholders_type.selectedItem.toString().equals("MASYARAKAT", true)) {
-                intent.putExtra(("masyarakat"), true)
-            }
             overlay.visibility = View.VISIBLE
             progress.visibility = View.VISIBLE
             Handler().postDelayed({
@@ -305,6 +313,7 @@ class InputIdentityActivity : AppCompatActivity() {
         }
 
         listStakeholderType?.forEachIndexed { index, stakeholderType ->
+            println(stakeholderType.id)
             if (stakeholderType.id == tipeStakeholder) {
                 stakeholders_type.setSelection(index)
             }

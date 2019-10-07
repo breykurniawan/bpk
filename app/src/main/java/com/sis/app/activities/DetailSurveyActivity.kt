@@ -1,6 +1,7 @@
 package com.sis.app.activities
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -75,7 +76,6 @@ class DetailSurveyActivity : AppCompatActivity() {
     private var photoSent: Boolean = false
     private var answerInserted: Boolean = false
     private var allowTakePhoto: Boolean = false
-    private var masyarakat: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +85,6 @@ class DetailSurveyActivity : AppCompatActivity() {
 
         data = intent.getParcelableExtra("respondenData")
         id_user = TinyDB(applicationContext).getInt("idSurveyor")
-        masyarakat = intent.getBooleanExtra("masyarakat", false)
         val id_kuisioner = intent.getIntExtra("id_kuisioner", -1)
 
         getKuisioner(id_kuisioner)
@@ -115,36 +114,38 @@ class DetailSurveyActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        try {
-            val ph: Bitmap = BitmapFactory.decodeFile(currentPhotoPath)
-            val res = Utility().checkRatio(ph.width.toFloat(), ph.height.toFloat()).split(" ")
-            val result = Utility().decodeSampledBitmapFromPath(
-                currentPhotoPath,
-                res[0].toInt(),
-                res[1].toInt()
-            )
-            photo.setImageBitmap(result)
-            container_foto.visibility = View.VISIBLE
-            val photoFile: File? = try {
-                File(currentPhotoPath)
-            } catch (ex: IOException) {
-                logging("error ${ex.message}")
-                null
-            }
-            if (photoFile != null) {
-                if (photoFile.exists()) {
-                    photoFile.delete()
+        if (resultCode == Activity.RESULT_OK) {
+            println(currentPhotoPath)
+            try {
+                val ph: Bitmap = BitmapFactory.decodeFile(currentPhotoPath)
+                val res = Utility().checkRatio(ph.width.toFloat(), ph.height.toFloat()).split(" ")
+                val result = Utility().decodeSampledBitmapFromPath(
+                    currentPhotoPath,
+                    res[0].toInt(),
+                    res[1].toInt()
+                )
+                photo.setImageBitmap(result)
+                container_foto.visibility = View.VISIBLE
+                val photoFile: File? = try {
+                    File(currentPhotoPath)
+                } catch (ex: IOException) {
+                    logging("error ${ex.message}")
+                    null
                 }
+                if (photoFile != null) {
+                    if (photoFile.exists()) {
+                        photoFile.delete()
+                    }
+                }
+                val fo = FileOutputStream(photoFile)
+                result.compress(Bitmap.CompressFormat.JPEG, 100, fo)
+                fo.flush()
+                fo.close()
+            } catch (ex: IOException) {
+                logging("gagal menyimpan foto ${ex.message}")
+                showSnack("Gagal Menyimpan Foto")
             }
-            val fo = FileOutputStream(photoFile)
-            result.compress(Bitmap.CompressFormat.JPEG, 100, fo)
-            fo.flush()
-            fo.close()
-        } catch (ex: IOException) {
-            logging("gagal menyimpan foto ${ex.message}")
-            showSnack("Gagal Menyimpan Foto")
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -222,7 +223,7 @@ class DetailSurveyActivity : AppCompatActivity() {
             sendRespondentData()
         } else {
             if (!answerSent) sendQuestionnaire()
-            else if (masyarakat) if (!photoSent) sendPhoto()
+            else if (!photoSent) sendPhoto()
         }
     }
 
@@ -243,9 +244,7 @@ class DetailSurveyActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     showSnack("Mengirim...")
                     answerSent = true
-                    if (masyarakat) {
-                        sendPhoto()
-                    }
+                    sendPhoto()
                 } else {
                     showSnack("Gagal Mengirim Data : ${response.message()}")
                     logging("Gagal Mengirim Data : $response")
@@ -584,7 +583,7 @@ class DetailSurveyActivity : AppCompatActivity() {
         if (!requestPermission.isEmpty()) {
             ActivityCompat.requestPermissions(
                 this,
-                requestPermission as Array<out String>,
+                requestPermission.toTypedArray(),
                 Utility.REQUEST_PERMISSION
             )
             return false

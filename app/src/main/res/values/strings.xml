@@ -7,53 +7,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="domisili">
-        <item>Aceh</item>
-        <item>Sumatera Utara</item>
-        <item>Riau</item>
-        <item>Kepulauan Riau</item>
-        <item>Jambi</item>
-        <item>Sumatera Barat</item>
-        <item>Sumatera Selatan</item>
-        <item>Lampung</item>
-        <item>Bengkulu</item>
-        <item>Bangka Belitung</item>
-        <item>Banten</item>
-        <item>Jawa Barat</item>
-        <item>DKI Jakarta</item>
-        <item>Jawa Tengah</item>
-        <item>Yogyakarta</item>
-        <item>Jawa Timur</item>
-        <item>Bali</item>
-        <item>NTB</item>
-        <item>NTT</item>
-        <item>Kalimantan Barat</item>
-        <item>Kalimantan Tengah</item>
-        <item>Kalimantan Selatan</item>
-        <item>Kalimantan Timur</item>
-        <item>Kalimantan Utara</item>
-        <item>Sulawesi Utara</item>
-        <item>Gorontalo</item>
-        <item>Sulawesi Barat</item>
-        <item>Sulawesi Selatan</item>
-        <item>Sulawesi Tengah</item>
-        <item>Sulawesi Tenggara</item>
-        <item>Maluku</item>
-        <item>Maluku Utara</item>
-        <item>Papua</item>
-        <item>Papua Barat</item>
-    </string-array>
-
-    <string-array name="pemangku_kepentingan">
-        <item>Kementrian</item>
-        <item>Lembaga/Badan Negara</item>
-        <item>Pemerintah Provinsi</item>
-        <item>Pemerintah Kabupaten</item>
-        <item>Pemerintah Kota</item>
-        <item>Bank Indonesia</item>
-        <item>BUMN</item>
-        <item>BUMD</item>
-    </string-array>
+    <string name="notice_auditee">Pastikan Responden telah membaca LHP BPK</string>
+    <string name="notice_masyarakat">Pastikan Responden pernah mendengar, mengenal, dan mengetahui tugas BPK</string>
+    <string name="notice_mitra_kerjasama">Pastikan Responden telah berkoordinasi dan bekerjasama dengan BPK</string>
+    <string name="notice_iph">   </string>
+    <string name="notice_legislatif">Pastikan Responden telah membaca IHPS</string>
 
     <string-array name="usia">
         <item>20 – 30 Tahun</item>
